@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { dbConnect } from "@/service/mongo";
 import { Inter } from "next/font/google";
 import "../globals.css";
 
@@ -10,7 +11,8 @@ export const metadata = {
   description: "MegaMart, Your shopping mall",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  await dbConnect();
   return (
     <html lang="en">
       <body className="font-poppins">

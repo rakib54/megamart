@@ -1,6 +1,9 @@
+import { getProducts } from "@/database/product/queries";
 import ProductCard from "../product/ProductCard";
 
-export default function Products() {
+export default async function Products() {
+  const products = await getProducts();
+
   return (
     <>
       <div class=" px-6 py-6">
@@ -11,10 +14,9 @@ export default function Products() {
         id="Projects"
         class="container px-6 mx-auto grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-8  mb-5"
       >
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {products?.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </section>
     </>
   );

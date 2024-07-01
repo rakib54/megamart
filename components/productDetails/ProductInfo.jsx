@@ -1,16 +1,20 @@
-export default function ProductInfo() {
+export default function ProductInfo({ product }) {
   return (
     <>
-      <h2 class="text-2xl font-bold text-gray-800 mb-2">
-        High Quality T Shirt
-      </h2>
-      <p class="text-gray-600  text-sm mb-4">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed ante
-        justo. Integer euismod libero id mauris malesuada tincidunt.
-      </p>
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">{product.name}</h2>
+      <p class="text-gray-600  text-sm mb-4">{product.shortDescription}</p>
       <div class="mb-4">
         <span class="font-bold text-gray-700">Price: </span>
-        <span class="text-gray-600 ">$29.99</span>
+        <span class="text-gray-600 ">
+          $
+          {(product.price - (product.price * product.discount) / 100).toFixed(
+            2
+          )}
+        </span>
+        <del class="text-gray-600 text-sm ml-2">${product.price}</del>
+        <span class="text-red-500 text-xs ml-3 italic">
+          {product.discount}% off
+        </span>
       </div>
       <div class="mb-4">
         <span class="font-bold text-gray-700 ">Availability: </span>
@@ -18,11 +22,11 @@ export default function ProductInfo() {
       </div>
       <div class="mb-4">
         <span class="font-bold text-gray-700 ">Category: </span>
-        <span class="text-gray-600 ">Cloth</span>
+        <span class="text-gray-600 ">{product.category}</span>
       </div>
       <div class="mb-4">
         <span class="font-bold text-gray-700">Brand: </span>
-        <span class="text-gray-600 ">No Brand</span>
+        <span class="text-gray-600 ">{product.brand}</span>
       </div>
 
       <div class="mb-4 flex gap-4 items-center">
@@ -41,15 +45,7 @@ export default function ProductInfo() {
       </div>
       <div>
         <span class="font-bold text-gray-700">Product Description:</span>
-        <p class="text-gray-600  mt-2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed ante
-          justo. Integer euismod libero id mauris malesuada tincidunt. Vivamus
-          commodo nulla ut lorem rhoncus aliquet. Duis dapibus augue vel ipsum
-          pretium, et venenatis sem blandit. Quisque ut erat vitae nisi ultrices
-          placerat non eget velit. Integer ornare mi sed ipsum lacinia, non
-          sagittis mauris blandit. Morbi fermentum libero vel nisl suscipit, nec
-          tincidunt mi consectetur.
-        </p>
+        <p class="text-gray-600  mt-2">{product.description}</p>
       </div>
     </>
   );
