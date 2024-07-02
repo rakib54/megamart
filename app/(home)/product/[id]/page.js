@@ -8,10 +8,10 @@ export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);
 
   return (
-    <div class="bg-gray-100  py-8">
-      <div class="mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row -mx-4">
-          <div class="md:flex-1 px-4">
+    <div className="bg-gray-100  py-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row -mx-4">
+          <div className="md:flex-1 px-4">
 
             <ProductImage thumbnail={product.thumbnail} />
 
@@ -20,7 +20,7 @@ export default async function ProductDetails({ params: { id } }) {
             <SocialMediaShare />
           </div>
 
-          <div class="md:flex-1 px-4">
+          <div className="md:flex-1 px-4">
             <ProductInfo product={product} />
           </div>
         </div>

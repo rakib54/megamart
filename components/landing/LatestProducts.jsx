@@ -3,7 +3,6 @@ import ProductCard from "../product/ProductCard";
 
 export default async function LatestProducts() {
   const latestProducts = await getLatestProducts();
-  console.log(latestProducts);
 
   return (
     <>
