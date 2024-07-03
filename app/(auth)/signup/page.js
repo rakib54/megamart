@@ -1,8 +1,17 @@
+import { auth } from "@/auth";
 import RegisterForm from "@/components/auth/RegisterForm";
 import SocialLogin from "@/components/auth/SocialLogin";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function SignUpPage() {
+export default async function SignUpPage() {
+  const session = await auth();
+
+  if (session?.user?.email) {
+    redirect("/");
+  }
+
+
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 min-h-screen mx-auto lg:py-0 mt-10">

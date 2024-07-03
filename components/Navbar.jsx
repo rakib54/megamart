@@ -1,7 +1,14 @@
+import { auth } from "@/auth";
 import Link from "next/link";
 import { FaRegHeart, FaShoppingCart, FaUser } from "react-icons/fa";
+import Logout from "./auth/Logout";
 
-export default function Navbar() {
+export default async function Navbar() {
+  const session = await auth();
+  console.log(session?.user);
+
+  const handleLogout = () => {};
+
   return (
     <nav className=" bg-neutral-700/95 w-full text-white">
       <div className="container mx-auto flex items-center justify-between px-5 py-4 text-white">
@@ -33,7 +40,7 @@ export default function Navbar() {
                   <path
                     stroke="currentColor"
                     strokeLinecap="round"
-                    stroke-linejoin="round"
+                    strokeLinejoin="round"
                     strokeWidth="2"
                     d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                   />
@@ -48,12 +55,15 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex gap-5 items-center justify-center">
-          <Link href="/login" className="flex items-center gap-1">
-            <FaUser />
-            Login
-          </Link>
-          {/* <p>welCome, Rakib</p> */}
-
+          {session?.user?.email ? (
+            <p>Welcome, {session.user.name.split(" ")[0]}</p>
+          ) : (
+            <Link href="/login" className="flex items-center gap-1">
+              <FaUser />
+              Login
+            </Link>
+          )}
+          {session?.user?.email && <Logout />}
           <div className="relative">
             <Link href="/favorites">
               <FaRegHeart className="text-3xl" />
