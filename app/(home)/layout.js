@@ -17,6 +17,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className="font-poppins">
         <Navbar />
+        {/* <Categories /> */}
         {children}
         <Footer />
       </body>

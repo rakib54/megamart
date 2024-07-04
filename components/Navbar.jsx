@@ -64,6 +64,11 @@ export default async function Navbar() {
             </Link>
           )}
           {session?.user?.email && <Logout />}
+          <div>
+            <Link href="/profile">
+              <FaUser className="text-2xl" />
+            </Link>
+          </div>
           <div className="relative">
             <Link href="/favorites">
               <FaRegHeart className="text-3xl" />
