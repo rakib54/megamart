@@ -2,7 +2,7 @@ import AddToCartAndWishListButton from "@/components/productDetails/AddToCartAnd
 import ProductImage from "@/components/productDetails/ProductImage";
 import ProductInfo from "@/components/productDetails/ProductInfo";
 import SocialMediaShare from "@/components/productDetails/SocialMediaShare";
-import { getProductById } from "@/database/product/queries";
+import { getProductById } from "@/database/queries/product";
 
 export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);

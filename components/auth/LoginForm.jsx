@@ -34,7 +34,7 @@ export default function LoginForm() {
       <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
         <div>
           <label
-            for="email"
+            htmlFor="email"
             className="block mb-2 text-sm font-medium text-gray-900"
           >
             Your email
@@ -50,7 +50,7 @@ export default function LoginForm() {
         </div>
         <div>
           <label
-            for="password"
+            htmlFor="password"
             className="block mb-2 text-sm font-medium text-gray-900 "
           >
             Password
@@ -76,7 +76,7 @@ export default function LoginForm() {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label for="remember" className="text-gray-500 ">
+              <label htmlFor="remember" className="text-gray-500 ">
                 Remember me
               </label>
             </div>

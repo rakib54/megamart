@@ -1,5 +1,5 @@
 import ProductCard from "@/components/product/ProductCard";
-import { getProducts } from "@/database/product/queries";
+import { getProducts } from "@/database/queries/product";
 
 export default async function ShopPage() {
   const products = await getProducts();

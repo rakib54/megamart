@@ -45,7 +45,7 @@ export default function RegisterForm() {
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <div>
         <label
-          for="name"
+          htmlFor="name"
           className="block mb-2 text-sm font-medium text-gray-900"
         >
           Full Name
@@ -61,7 +61,7 @@ export default function RegisterForm() {
       </div>
       <div>
         <label
-          for="email"
+          htmlFor="email"
           className="block mb-2 text-sm font-medium text-gray-900"
         >
           Your email
@@ -77,7 +77,7 @@ export default function RegisterForm() {
       </div>
       <div>
         <label
-          for="password"
+          htmlFor="password"
           className="block mb-2 text-sm font-medium text-gray-900 "
         >
           Password
@@ -93,7 +93,7 @@ export default function RegisterForm() {
       </div>
       <div>
         <label
-          for=" confirm-password"
+          htmlFor=" confirm-password"
           className="block mb-2 text-sm font-medium text-gray-900 "
         >
           Confirm password
@@ -117,7 +117,7 @@ export default function RegisterForm() {
           />
         </div>
         <div className="ml-3 text-sm">
-          <label for="terms" className="font-light text-gray-500">
+          <label htmlFor="terms" className="font-light text-gray-500">
             I accept the{" "}
             <a
               className="font-medium text-primary-600 hover:underline "

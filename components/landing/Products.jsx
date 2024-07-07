@@ -1,4 +1,4 @@
-import { getProducts } from "@/database/product/queries";
+import { getProducts } from "@/database/queries/product";
 import ProductCard from "../product/ProductCard";
 
 export default async function Products() {

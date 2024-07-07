@@ -1,13 +1,13 @@
 import { auth } from "@/auth";
+import { getCartsForUser } from "@/database/queries/cart";
 import Link from "next/link";
 import { FaRegHeart, FaShoppingCart, FaUser } from "react-icons/fa";
 import Logout from "./auth/Logout";
 
 export default async function Navbar() {
   const session = await auth();
-  console.log(session);
 
-  const handleLogout = () => {};
+  const carts = await getCartsForUser(session?.user?.id);
 
   return (
     <nav className=" bg-neutral-700/95 w-full text-white">
@@ -81,9 +81,11 @@ export default async function Navbar() {
             <Link href="/cart">
               <FaShoppingCart className="text-3xl" />
 
-              <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-1 text-white">
-                10
-              </p>
+              {carts?.length > 0 && (
+                <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-2 text-white">
+                  {carts?.length}
+                </p>
+              )}
             </Link>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { getLatestProducts } from "@/database/product/queries";
+import { getLatestProducts } from "@/database/queries/product";
 import ProductCard from "../product/ProductCard";
 
 export default async function LatestProducts() {
