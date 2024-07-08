@@ -14,7 +14,7 @@ export default async function Cart() {
 
   return (
     <section className="py-16">
-      <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+      {cartList.length > 0 ? <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
 
         <h2 className=" font-bold text-3xl leading-10 mb-8 text-left text-black">Your Cart
         </h2>
@@ -28,7 +28,7 @@ export default async function Cart() {
 
         {
           cartList?.map((item) => (
-            <CartCard key={item.id} item={item} />
+            <CartCard key={item.id} item={item} userId={session?.user?.id} />
           ))
         }
 
@@ -45,11 +45,16 @@ export default async function Cart() {
             className="rounded-full w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#ff3f34] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#e6443c]">Checkout
             <svg className="ml-2" xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
               <path d="M8.75324 5.49609L14.2535 10.9963L8.75 16.4998" stroke="white" stroke-width="1.6"
-                stroke-linecap="round" stroke-linejoin="round" />
+                strokeLinecap="round" stroke-linejoin="round" />
             </svg>
           </Link>
         </div>
-      </div>
+      </div> :
+        <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+          <h2 className=" font-bold text-3xl leading-10 mb-8 text-left text-green-500">Your Cart is Empty!
+          </h2>
+        </div>
+      }
     </section>
   )
 }

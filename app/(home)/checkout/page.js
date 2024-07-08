@@ -90,7 +90,7 @@ export default function CheckoutPage() {
                     class="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100">
                     <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                       fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      <path stroke="currentColor" strokeLinecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
                     </svg>
                     Add new address

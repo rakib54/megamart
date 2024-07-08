@@ -1,6 +1,6 @@
 "use client";
 
-import { addToCart } from "@/app/actions";
+import { addToCart } from "@/app/actions/cart-action";
 import { useRouter } from "next/navigation";
 
 export default function AddToCartButton({ product, userId }) {

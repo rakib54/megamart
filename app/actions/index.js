@@ -2,7 +2,6 @@
 
 import { signIn } from "@/auth";
 import { registerUser } from "@/database/queries/auth";
-import { addedToCartProduct } from "@/database/queries/cart";
 
 import { dbConnect } from "@/service/mongo";
 import { revalidatePath } from "next/cache";
@@ -36,13 +35,3 @@ export const Login = async (credential) => {
   }
 }
 
-export const addToCart = async (userId, productDetails) => {
-  try {
-    await addedToCartProduct(userId, productDetails);
-
-    revalidatePath("/");
-
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}

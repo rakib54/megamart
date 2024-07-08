@@ -1,7 +1,6 @@
-import AddToCartAndWishListButton from "@/components/productDetails/AddToCartAndWishListButton";
+import ProductDescription from "@/components/productDetails/ProductDescription";
 import ProductImage from "@/components/productDetails/ProductImage";
 import ProductInfo from "@/components/productDetails/ProductInfo";
-import SocialMediaShare from "@/components/productDetails/SocialMediaShare";
 import { getProductById } from "@/database/queries/product";
 
 export default async function ProductDetails({ params: { id } }) {
@@ -15,9 +14,8 @@ export default async function ProductDetails({ params: { id } }) {
 
             <ProductImage thumbnail={product.thumbnail} />
 
-            <AddToCartAndWishListButton />
+            <ProductDescription description={product.description} />
 
-            <SocialMediaShare />
           </div>
 
           <div className="md:flex-1 px-4">

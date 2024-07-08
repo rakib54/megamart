@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function ProductImage({ thumbnail }) {
   return (
-    <div className="h-[460px] rounded-lg bg-gray-300 mb-4">
+    <div className="h-[440px] rounded-lg bg-gray-300 mb-4">
       <Image
         className="w-full h-full object-cover"
         src={thumbnail}
