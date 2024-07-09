@@ -1,3 +1,4 @@
+import NotFound from "@/components/product/NotFound";
 import ProductDescription from "@/components/productDetails/ProductDescription";
 import ProductImage from "@/components/productDetails/ProductImage";
 import ProductInfo from "@/components/productDetails/ProductInfo";
@@ -5,6 +6,11 @@ import { getProductById } from "@/database/queries/product";
 
 export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);
+
+
+  if (!product) {
+    return <NotFound />
+  }
 
   return (
     <div className="bg-gray-100  py-8">

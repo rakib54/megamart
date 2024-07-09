@@ -11,13 +11,15 @@ export default async function ProductCard({ product }) {
 
   return (
     <div className="h-fit w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-      <Image
-        src={product?.thumbnail}
-        height={224}
-        width={288}
-        alt="Product"
-        className="h-56 w-72 object-cover rounded-t-xl"
-      />
+      <Link href={`/product/${product.id}`}>
+        <Image
+          src={product?.thumbnail}
+          height={224}
+          width={288}
+          alt="Product"
+          className="h-56 w-72 object-cover rounded-t-xl"
+        />
+      </Link>
       <div className="px-4 py-3 w-72">
         <span className="text-gray-400 mr-3 uppercase text-xs">
           {product.brand}

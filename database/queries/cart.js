@@ -24,8 +24,13 @@ export const addedToCartProduct = async (userId, productDetails) => {
     )
   }
 
+  const alreadyExistsInCart = await cartModel.findOne({ productId: productDetails.productId, userId: userId });
+
+  if (alreadyExistsInCart && alreadyExistsInCart.quantity + productDetails.quantity > 5) {
+    throw new Error(`You can not add product more than 5. please check your cart`);
+  }
+
   try {
-    const alreadyExistsInCart = await cartModel.findOne({ productId: productDetails.productId, userId: userId });
 
     if (alreadyExistsInCart) {
       await cartModel.updateOne(
@@ -50,8 +55,7 @@ export const deleteCart = async (userId, productId, quantity) => {
   await dbConnect();
   try {
     const response = await cartModel.deleteOne(
-      { userId: userId },
-      { productId: productId }
+      { userId: userId, productId: productId },
     );
 
     await productModel.updateOne(
@@ -69,7 +73,7 @@ export const incrementProductQuantityFromCart = async (userId, productId) => {
   const product = await productModel.findOne({ _id: productId });
 
   if (product?.stock <= 0) {
-    throw new Error("Product is out of stock! please remove this product quantity");
+    throw new Error("You can not add more than this! stock limited");
   }
 
   await productModel.updateOne(

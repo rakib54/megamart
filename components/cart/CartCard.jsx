@@ -7,6 +7,7 @@ import {
 } from "@/app/actions/cart-action";
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function CartCard({ item, userId }) {
   const [quantity, setQuantity] = useState(item.quantity);
@@ -15,32 +16,36 @@ export default function CartCard({ item, userId }) {
   const handleDeleteCart = async () => {
     try {
       await removeCart(userId, item.productId, item.quantity);
+      toast.success(`${item.name} is removed successfully from cart.`);
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
 
   const IncrementProductQuantity = async () => {
     setQuantity((prev) => prev + 1);
+    setError("");
     try {
       await incrementProduct(userId, item.productId);
     } catch (error) {
+      setQuantity((prev) => prev - 1);
+      toast.error(error.message);
       setError(error.message);
     }
   };
 
   const DecrementProductQuantity = async () => {
     setQuantity((prev) => Math.max(1, prev - 1));
+    setError("");
     try {
       await decrementProductQuantity(userId, item.productId);
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 min-[550px]:gap-6 border-t border-gray-200 py-6">
-      {error && <p className="text-red-500 text-sm italic">{error}</p>}
       <div className="flex items-center flex-col min-[550px]:flex-row gap-3 min-[550px]:gap-6 w-full max-xl:justify-center max-xl:max-w-xl max-xl:mx-auto">
         <div>
           <Image
@@ -136,7 +141,7 @@ export default function CartCard({ item, userId }) {
             {quantity}
           </p>
           <button
-            disabled={quantity === 5}
+            disabled={error || quantity === 5}
             onClick={IncrementProductQuantity}
             className="group rounded-r-full px-6 py-[18px] border border-gray-200 flex items-center justify-center shadow-sm shadow-transparent transition-all duration-500 hover:shadow-gray-200 hover:border-gray-300 hover:bg-gray-50 disabled:text-gray-100 disabled:cursor-not-allowed"
           >

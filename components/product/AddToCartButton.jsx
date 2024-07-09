@@ -2,9 +2,12 @@
 
 import { addToCart } from "@/app/actions/cart-action";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function AddToCartButton({ product, userId }) {
   const router = useRouter();
+  const [error, setError] = useState("");
 
   const handleAddToCart = async () => {
     const productDetails = {
@@ -19,11 +22,15 @@ export default function AddToCartButton({ product, userId }) {
 
     if (!userId) {
       router.push("/login");
+      return;
     }
     try {
       await addToCart(userId, productDetails);
+      toast.success(
+        `${productDetails?.name} is added to the cart successfully.`
+      );
     } catch (error) {
-      throw new Error(error.message);
+      toast.error(error.message);
     }
   };
 

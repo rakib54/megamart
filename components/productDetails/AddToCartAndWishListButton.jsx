@@ -4,6 +4,7 @@ import { addToCart } from "@/app/actions/cart-action";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
+import { toast } from "sonner";
 
 export default function AddToCartAndWishListButton({ product, userId }) {
   const router = useRouter();
@@ -27,8 +28,11 @@ export default function AddToCartAndWishListButton({ product, userId }) {
 
     try {
       await addToCart(userId, productDetails);
+      toast.success(
+        `${productDetails?.name} is added to the cart successfully.`
+      );
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   };
 

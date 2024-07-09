@@ -34,9 +34,13 @@ export const getProductById = async (id) => {
   try {
     const product = await productModel.findById(id).lean();
 
+    if (!product) {
+      return null;
+    }
+
     return replaceMongoIdWithObject(product);
 
   } catch (error) {
-    throw error
+    return null;
   }
 }
