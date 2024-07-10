@@ -1,13 +1,18 @@
 import { auth } from "@/auth";
+import { getWishLists } from "@/database/queries/wishlist";
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegHeart, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import AddToCartButton from "./AddToCartButton";
+import AddToWishListButton from "./AddToWishListButton";
 
 export default async function ProductCard({ product }) {
   const session = await auth();
 
   const userId = session?.user?.id;
+  const wishLists = await getWishLists(userId);
+
+  const isAddedToWishList = wishLists?.productId.includes(product.id);
 
   return (
     <div className="h-fit w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -42,9 +47,11 @@ export default async function ProductCard({ product }) {
               ${product.price}
             </p>
           </del>
-          <div className="ml-auto">
-            <FaRegHeart className="text-xl" />
-          </div>
+          <AddToWishListButton
+            product={product}
+            userId={userId}
+            isAddedToWishList={isAddedToWishList}
+          />
         </div>
         <div className="flex gap-1">
           <FaStar />

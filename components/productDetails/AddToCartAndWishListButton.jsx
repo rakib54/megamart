@@ -1,12 +1,17 @@
 "use client";
 
 import { addToCart } from "@/app/actions/cart-action";
+import { updateWishList } from "@/app/actions/wishlist-action";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { toast } from "sonner";
 
-export default function AddToCartAndWishListButton({ product, userId }) {
+export default function AddToCartAndWishListButton({
+  product,
+  userId,
+  isAddedToWishList,
+}) {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState("");
@@ -31,6 +36,19 @@ export default function AddToCartAndWishListButton({ product, userId }) {
       toast.success(
         `${productDetails?.name} is added to the cart successfully.`
       );
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleAddToWishList = async () => {
+    try {
+      await updateWishList(userId, product.id);
+      if (isAddedToWishList) {
+        toast.error(`${product.name} has been removed from wishlist`);
+      } else {
+        toast.success(`${product.name} is added to the wish list!`);
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -85,8 +103,13 @@ export default function AddToCartAndWishListButton({ product, userId }) {
           </button>
         </div>
         <div className="w-full sm:w-1/2 px-2 mt-4 sm:mt-0">
-          <button className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 active:bg-red-700 disabled:opacity-50 w-full flex items-center justify-center transition duration-300">
-            Add to wishList
+          <button
+            onClick={handleAddToWishList}
+            className={`${
+              isAddedToWishList && "bg-red-500 text-white"
+            } py-2 px-4 rounded border text-red-500 border-red-500 disabled:opacity-50 w-full flex items-center justify-center transition duration-300 cursor-pointer `}
+          >
+            {isAddedToWishList ? "Added to wishList" : "Add to wishList"}
             <FaRegHeart className="text-xl ml-2" />
           </button>
         </div>

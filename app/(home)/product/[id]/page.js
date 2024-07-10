@@ -1,11 +1,16 @@
+import { auth } from "@/auth";
 import NotFound from "@/components/product/NotFound";
 import ProductDescription from "@/components/productDetails/ProductDescription";
 import ProductImage from "@/components/productDetails/ProductImage";
 import ProductInfo from "@/components/productDetails/ProductInfo";
 import { getProductById } from "@/database/queries/product";
+import { getWishLists } from "@/database/queries/wishlist";
 
 export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);
+  const session = await auth();
+  const wishLists = await getWishLists(session?.user?.id);
+  const isAddedToWishList = wishLists?.productId.includes(product.id);
 
 
   if (!product) {
@@ -25,7 +30,7 @@ export default async function ProductDetails({ params: { id } }) {
           </div>
 
           <div className="md:flex-1 px-4">
-            <ProductInfo product={product} />
+            <ProductInfo isAddedToWishList={isAddedToWishList} product={product} />
           </div>
         </div>
       </div>

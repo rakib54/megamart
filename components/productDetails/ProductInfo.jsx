@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import AddToCartAndWishListButton from "./AddToCartAndWishListButton";
 import SocialMediaShare from "./SocialMediaShare";
 
-export default async function ProductInfo({ product }) {
+export default async function ProductInfo({ product, isAddedToWishList }) {
   const session = await auth();
   return (
     <>
@@ -39,6 +39,7 @@ export default async function ProductInfo({ product }) {
       </div>
 
       <AddToCartAndWishListButton
+        isAddedToWishList={isAddedToWishList}
         product={product}
         userId={session?.user?.id}
       />
