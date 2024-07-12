@@ -36,5 +36,6 @@ export const getWishLists = async (userId) => {
   if (!userId) return null;
   const wishlist = await wishListModel.findOne({ userId: userId }).lean();
 
+
   return replaceMongoIdWithObject(wishlist);
 }

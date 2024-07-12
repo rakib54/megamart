@@ -5,6 +5,7 @@ import { replaceMongoIdWithArray } from "@/utils/db-utils";
 
 export const getCartsForUser = async (userId) => {
   await dbConnect();
+  if (!userId) return null;
   const carts = await cartModel.find({ userId }).lean();
 
   return replaceMongoIdWithArray(carts);

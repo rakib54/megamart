@@ -75,7 +75,7 @@ export default async function Navbar() {
             <Link href="/favorites">
               <FaRegHeart className="text-3xl" />
               {wishLists?.productId?.length > 0 && (
-                <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-1 text-white">
+                <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-2 text-white">
                   {wishLists?.productId?.length}
                 </p>
               )}

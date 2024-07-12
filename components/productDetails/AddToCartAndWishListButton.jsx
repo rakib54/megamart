@@ -29,6 +29,7 @@ export default function AddToCartAndWishListButton({
 
     if (!userId) {
       router.push("/login");
+      return;
     }
 
     try {
@@ -42,6 +43,10 @@ export default function AddToCartAndWishListButton({
   };
 
   const handleAddToWishList = async () => {
+    if (!userId) {
+      router.push("/login");
+      return;
+    }
     try {
       await updateWishList(userId, product.id);
       if (isAddedToWishList) {
