@@ -2,12 +2,13 @@ import { productModel } from "@/models/product-model";
 import { dbConnect } from "@/service/mongo";
 import { replaceMongoIdWithArray, replaceMongoIdWithObject } from "@/utils/db-utils";
 
-export const getProducts = async (category) => {
+export const getProducts = async (category, sort, min, max, size) => {
   await dbConnect();
   let products;
   try {
     products = await productModel.find().lean();
 
+    // filter by category
     if (category) {
       const categoryToMatch = category.split("|");
 
@@ -15,11 +16,44 @@ export const getProducts = async (category) => {
         return categoryToMatch.includes(product.category);
       })
     }
+    // sorting 
+    if (sort) {
+      products = await sortProductsByPreference(products, sort);
+    }
+
+    if (min && max) {
+      products = products.filter((product) => {
+        const productPriceAfterDiscount = product.price - (product.price * product.discount / 100);
+        return productPriceAfterDiscount >= min && productPriceAfterDiscount <= max;
+      })
+    }
+
+    if (size) {
+      products = products.filter((product) => {
+        return product.size === size;
+      })
+    }
 
     return replaceMongoIdWithArray(products);
   } catch (error) {
     throw new Error(error.message);
   }
+}
+
+export const sortProductsByPreference = (products, sortType) => {
+  let sortProducts;
+  if (sortType === 'ltoh') {
+    return products.sort((a, b) => a.price - b.price);
+  }
+  else if (sortType === 'htol') {  // descending
+    return products.sort((a, b) => b.price - a.price);
+
+  }
+  else if (sortType === 'new') {
+    return products.sort((a, b) => new Date(a.arrivalDate) - new Date(b.arrivalDate));
+  }
+
+  return products;
 }
 
 export const getLatestProducts = async () => {

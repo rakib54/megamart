@@ -13,11 +13,9 @@ function refineCategory(category) {
   return decodeURI(category);
 }
 
-export default async function ShopPage({ searchParams: { category } }) {
+export default async function ShopPage({ searchParams: { category, sort, min, max, size } }) {
   const updateCategory = refineCategory(category);
-
-  const products = await getProducts(updateCategory);
-
+  const products = await getProducts(updateCategory, sort, min, max, size);
   const allCategory = await getProductCategory();
 
 
@@ -166,12 +164,12 @@ export default async function ShopPage({ searchParams: { category } }) {
         <SortProducts />
 
         {/* show product */}
-        <div
+        {products.length > 0 ? <div
           className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-2 gap-y-4 md:gap-x-6 md:gap-y-8 place-items-center">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-        </div>
+        </div> : <div className="font-bold text-xl">Product Not Found!</div>}
 
       </div>
     </div>
