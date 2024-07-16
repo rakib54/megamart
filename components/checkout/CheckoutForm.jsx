@@ -1,5 +1,7 @@
 "use client";
 
+import { createCheckoutSessions } from "@/app/actions/stripe";
+
 export default function CheckoutForm({ userId, carts }) {
   const Total = carts.reduce((curr, item) => {
     return curr + item.price * item.quantity;
@@ -9,8 +11,13 @@ export default function CheckoutForm({ userId, carts }) {
 
   const subTotal = Total + vat;
 
+  const formAction = async () => {
+    const { url } = await createCheckoutSessions();
+    window.location.assign(url);
+  };
+
   return (
-    <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+    <form action={formAction} className="mx-auto max-w-screen-xl px-4 2xl:px-0">
       <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
         <div className="min-w-0 flex-1 space-y-8">
           <div className="space-y-4">
@@ -111,7 +118,7 @@ export default function CheckoutForm({ userId, carts }) {
                       type="text"
                       id="phone-input"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                       placeholder="123-456-7890"
                       required
                     />
