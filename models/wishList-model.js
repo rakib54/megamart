@@ -5,10 +5,7 @@ const wishListSchema = new Schema({
     required: true,
     type: String
   },
-  productId: {
-    required: true,
-    type: Array
-  }
+  productId: [{ type: Schema.ObjectId, ref: "productModel" }]
 })
 
 export const wishListModel = mongoose.models.wishlists ?? mongoose.model('wishlists', wishListSchema);

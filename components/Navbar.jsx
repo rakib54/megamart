@@ -72,7 +72,7 @@ export default async function Navbar() {
             </Link>
           </div>
           <div className="relative">
-            <Link href="/favorites">
+            <Link href="/wishlist">
               <FaRegHeart className="text-3xl" />
               {wishLists?.productId?.length > 0 && (
                 <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-2 text-white">

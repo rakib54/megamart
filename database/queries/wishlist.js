@@ -1,3 +1,4 @@
+import { productModel } from "@/models/product-model";
 import { wishListModel } from "@/models/wishList-model";
 import { dbConnect } from "@/service/mongo";
 import { replaceMongoIdWithObject } from "@/utils/db-utils";
@@ -34,7 +35,12 @@ export const addToWishList = async (userId, pId) => {
 
 export const getWishLists = async (userId) => {
   if (!userId) return null;
-  const wishlist = await wishListModel.findOne({ userId: userId }).lean();
+  const wishlist = await wishListModel.findOne({ userId: userId })
+    .populate({
+      path: "productId",
+      model: productModel,
+    })
+    .lean();
 
 
   return replaceMongoIdWithObject(wishlist);
