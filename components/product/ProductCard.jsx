@@ -12,7 +12,9 @@ export default async function ProductCard({ product }) {
   const userId = session?.user?.id;
   const wishLists = await getWishLists(userId);
 
-  const isAddedToWishList = wishLists?.productId.includes(product.id);
+  const isAddedToWishList = wishLists?.productId.find(
+    (item) => item._id.toString() === product.id
+  );
 
   return (
     <div className="h-fit w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -50,7 +52,7 @@ export default async function ProductCard({ product }) {
           <AddToWishListButton
             product={product}
             userId={userId}
-            isAddedToWishList={isAddedToWishList}
+            isAddedToWishList={!!isAddedToWishList}
           />
         </div>
         <div className="flex gap-1">

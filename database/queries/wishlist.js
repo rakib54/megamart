@@ -45,3 +45,19 @@ export const getWishLists = async (userId) => {
 
   return replaceMongoIdWithObject(wishlist);
 }
+
+export const deleteFromWishList = async (userId, pId) => {
+  if (!userId) return null;
+
+  try {
+    const userWishlist = await wishListModel.findOne({ userId });
+
+    if (userWishlist) {
+      await userWishlist.productId.pull(pId);
+      await userWishlist.save();
+      return new Error("product has been removed from wishlist");
+    }
+  } catch (error) {
+    throw new Error("Something went Wrong!");
+  }
+}
