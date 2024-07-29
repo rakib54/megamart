@@ -21,7 +21,7 @@ export default function AddToCartButton({ product, userId }) {
     };
 
     if (!userId) {
-      router.push("/login");
+      router.push(`/login?addtocart=${product?.id}`);
       return;
     }
     try {

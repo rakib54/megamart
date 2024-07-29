@@ -1,5 +1,6 @@
 import { userModel } from "@/models/user-model";
 import { dbConnect } from "@/service/mongo";
+import { replaceMongoIdWithObject } from "@/utils/db-utils";
 
 export const registerUser = async (user) => {
   await dbConnect();
@@ -9,5 +10,17 @@ export const registerUser = async (user) => {
 
   } catch (error) {
     throw new Error(error.message)
+  }
+}
+
+export const getUser = async (email) => {
+  await dbConnect();
+
+  try {
+    const user = await userModel.findOne({ email });
+
+    return replaceMongoIdWithObject(user);
+  } catch (error) {
+    throw new Error(error.message);
   }
 }

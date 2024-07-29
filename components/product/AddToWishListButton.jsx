@@ -15,7 +15,7 @@ export default function AddToWishListButton({
 
   const handleAddToWishList = async () => {
     if (!userId) {
-      router.push("/login");
+      router.push(`/login?addtowishlist=${product?.id}`);
       return;
     }
     try {

@@ -1,10 +1,15 @@
 "use client";
 
-import { Login } from "@/app/actions";
+import { getUserId, Login } from "@/app/actions/auth-action";
+import { addToCart } from "@/app/actions/cart-action";
+import { getSingleProduct } from "@/app/actions/product-action";
+import { updateWishList } from "@/app/actions/wishlist-action";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
-export default function LoginForm() {
+export default function LoginForm({ addtocart, addtowishlist }) {
   const [error, setError] = useState();
   const router = useRouter();
 
@@ -21,6 +26,34 @@ export default function LoginForm() {
       const response = await Login({ email, password });
 
       if (response) {
+        const userId = await getUserId(email);
+
+        if (userId && addtocart) {
+          const product = await getSingleProduct(addtocart);
+          // check if productId is valid
+          if (product && product.stock > 0) {
+            const productDetails = {
+              productId: product.id,
+              quantity: 1,
+              name: product.name,
+              category: product.category,
+              price: product.price,
+              discount: product.discount,
+              thumbnail: product.thumbnail,
+            };
+            await addToCart(userId, productDetails);
+            toast.success(`${product.name} is added to the cart`);
+          } else {
+            router.push("/");
+          }
+        } else if (userId && addtowishlist) {
+          const product = await getSingleProduct(addtowishlist);
+          if (product) {
+            await updateWishList(userId, addtowishlist);
+            toast.success(`${product.name} is added to the wishList`);
+          }
+        }
+
         router.push("/");
       }
     } catch (error) {

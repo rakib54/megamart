@@ -1,11 +1,11 @@
 "use client";
 
-import { register } from "@/app/actions";
+import { register } from "@/app/actions/auth-action";
 import bcrypt from "bcryptjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function RegisterForm() {
+export default function RegisterForm({ addtocart, addtowishlist }) {
   const [error, setError] = useState();
   const router = useRouter();
 
@@ -34,7 +34,13 @@ export default function RegisterForm() {
 
       const response = await register(newUser);
 
-      router.push("/login");
+      if (addtocart) {
+        router.push(`/login?addtocart=${addtocart}`);
+      } else if (addtowishlist) {
+        router.push(`/login?addtowishlist=${addtowishlist}`);
+      } else {
+        router.push("/login");
+      }
     } catch (error) {
       setError(error.message);
     }

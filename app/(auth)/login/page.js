@@ -4,7 +4,7 @@ import SocialLogin from "@/components/auth/SocialLogin";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function LoginPage() {
+export default async function LoginPage({ searchParams: { addtocart, addtowishlist } }) {
   const session = await auth();
 
   if (session?.user?.email) {
@@ -20,7 +20,7 @@ export default async function LoginPage() {
               Welcome to MegaMart! Please login.
             </h1>
 
-            <LoginForm />
+            <LoginForm addtocart={addtocart} addtowishlist={addtowishlist} />
 
             <div className="mt-6 flex justify-center relative">
               <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">Or login with</div>
@@ -30,8 +30,17 @@ export default async function LoginPage() {
             <SocialLogin />
 
             <p className="text-sm font-light text-gray-500 text-center">
-              Don’t have an account yet? <Link href="/signup"
-                className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+              Don’t have an account yet?
+              {addtocart ?
+                <Link href={`/signup?addtocart=${addtocart}`}
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+                : addtowishlist ?
+                  <Link href={`/signup?addtowishlist=${addtowishlist}`}
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up
+                  </Link> :
+                  <Link href="/signup"
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up
+                  </Link>}
             </p>
           </div>
         </div>

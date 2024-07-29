@@ -10,7 +10,7 @@ export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);
   const session = await auth();
   const wishLists = await getWishLists(session?.user?.id);
-  const isAddedToWishList = wishLists?.productId.includes(product.id);
+  const isAddedToWishList = wishLists?.productId.find((item) => item._id.toString() === id);
 
 
   if (!product) {
@@ -30,7 +30,7 @@ export default async function ProductDetails({ params: { id } }) {
           </div>
 
           <div className="md:flex-1 px-4">
-            <ProductInfo isAddedToWishList={isAddedToWishList} product={product} />
+            <ProductInfo isAddedToWishList={!!isAddedToWishList} product={product} />
           </div>
         </div>
       </div>

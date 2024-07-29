@@ -1,7 +1,7 @@
 'use server'
 
 import { signIn } from "@/auth";
-import { registerUser } from "@/database/queries/auth";
+import { getUser, registerUser } from "@/database/queries/auth";
 
 import { dbConnect } from "@/service/mongo";
 import { revalidatePath } from "next/cache";
@@ -32,6 +32,19 @@ export const Login = async (credential) => {
 
   } catch (error) {
     throw new Error("Username or Password is wrong!");
+  }
+}
+
+export const getUserId = async (email) => {
+  await dbConnect();
+
+  try {
+    const user = await getUser(email);
+
+    return user.id;
+
+  } catch (error) {
+    throw new Error(error.message)
   }
 }
 

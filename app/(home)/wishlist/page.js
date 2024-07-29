@@ -3,6 +3,7 @@ import AddToCartButton from "@/components/wishList/AddToCartButton";
 import DeleteWishListProductButton from "@/components/wishList/DeleteWishListProductButton";
 import { getWishLists } from "@/database/queries/wishlist";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function WishlistPage() {
   const session = await auth();
@@ -40,7 +41,7 @@ export default async function WishlistPage() {
                 <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                   <Image className="h-10 w-10 rounded" src={item.thumbnail} alt={item.name} width={40} height={40} />
                   <div className="ps-3">
-                    <div className="text-base font-semibold">{item.name}</div>
+                    <Link href={`/product/${item._id.toString()}`} className="text-base font-semibold">{item.name}</Link>
                     <div className="font-normal text-gray-500">{item.category}</div>
                   </div>
                 </th>
