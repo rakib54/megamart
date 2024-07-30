@@ -13,9 +13,9 @@ function refineCategory(category) {
   return decodeURI(category);
 }
 
-export default async function ShopPage({ searchParams: { category, sort, min, max, size } }) {
+export default async function ShopPage({ searchParams: { category, sort, min, max, size, q } }) {
   const updateCategory = refineCategory(category);
-  const products = await getProducts(updateCategory, sort, min, max, size);
+  const products = await getProducts(updateCategory, sort, min, max, size, q);
   const allCategory = await getProductCategory();
 
 

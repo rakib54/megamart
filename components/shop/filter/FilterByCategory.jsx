@@ -65,7 +65,10 @@ export default function FilterByCategory({ category }) {
               id="cat-1"
               className="text-primary focus:ring-0 rounded-sm cursor-pointer"
             />
-            <label for="cat-1" className="text-gray-600 ml-3 cusror-pointer">
+            <label
+              htmlFor="cat-1"
+              className="text-gray-600 ml-3 cusror-pointer"
+            >
               {c.name}
             </label>
             <div className="ml-auto text-gray-600 text-sm">({c.count})</div>

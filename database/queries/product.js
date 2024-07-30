@@ -2,11 +2,21 @@ import { productModel } from "@/models/product-model";
 import { dbConnect } from "@/service/mongo";
 import { replaceMongoIdWithArray, replaceMongoIdWithObject } from "@/utils/db-utils";
 
-export const getProducts = async (category, sort, min, max, size) => {
+export const getProducts = async (category, sort, min, max, size, searchText) => {
   await dbConnect();
   let products;
   try {
     products = await productModel.find().lean();
+
+    if (searchText) {
+      products = products.filter((item) => {
+
+        const nameMatches = item.name.toLowerCase().includes(searchText.toLowerCase());
+        const categoryMatches = item.brand.toLowerCase().includes(searchText.toLowerCase());
+
+        return nameMatches || categoryMatches;
+      });
+    }
 
     // filter by category
     if (category) {
