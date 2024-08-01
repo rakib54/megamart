@@ -105,6 +105,7 @@ export const getProductCategory = async () => {
     $group: {            // group documents that have the same value
       _id: '$category',  // documents will be grouped by the value of the category field
       count: { $sum: 1 },  // store the total number of documents in each category.
+      thumbnail: { $first: '$thumbnail' }
     },
   },
   {
@@ -112,6 +113,7 @@ export const getProductCategory = async () => {
       _id: 0,         // exclude _id from the output
       name: '$_id',  // _id in previous stage is category
       count: 1,      // count field should be included as it is from the previous stage
+      thumbnail: 1
     },
   },
   {
@@ -122,4 +124,23 @@ export const getProductCategory = async () => {
   ])
 
   return CategoryWithCount;
+}
+
+export const getRelatedProduct = async (productId) => {
+  await dbConnect();
+
+  const currentProducts = await productModel.findById(productId).lean();
+
+  if (currentProducts) {
+    const category = currentProducts.category;
+
+    const relatedCategory = await productModel.find({
+      category: category,
+      _id: { $ne: productId },
+    }).limit(4).lean();
+
+    return replaceMongoIdWithArray(relatedCategory);
+  } else {
+    throw new Error("No Result found!");
+  }
 }
