@@ -20,9 +20,9 @@ export const createCheckoutSessions = async (data) => {
         price_data: {
           currency: CURRENCY,
           product_data: {
-            name: "T shirt",
+            name: "Megamart shopping",
           },
-          unit_amount: formatPriceForStripe(120.65, CURRENCY),
+          unit_amount: formatPriceForStripe(data.get("subtotal"), CURRENCY),
         }
       }
     ],
@@ -43,7 +43,7 @@ export const createCheckoutSessions = async (data) => {
 
 export async function createPaymentIntent(data) {
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: formatAmountForStripe(120.65, CURRENCY),
+    amount: formatAmountForStripe(data.get("subtotal"), CURRENCY),
     automatic_payment_methods: { enabled: true },
     currency: CURRENCY
   })

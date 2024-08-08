@@ -64,7 +64,10 @@ export default function CartCard({ item, userId }) {
             {item.category}
           </p>
           <h6 className="font-medium text-lg leading-8 text-gray-500  max-[550px]:text-center">
-            ${item.price}
+            <span className="line-through">${item.price}</span>
+            <span className="ml-2">
+              ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
+            </span>
           </h6>
 
           {/* delete button */}
@@ -177,7 +180,11 @@ export default function CartCard({ item, userId }) {
           </button>
         </div>
         <h6 className="text-[#e14941] font-manrope font-bold text-2xl leading-9 w-full max-w-[176px] text-center">
-          ${item.price * item.quantity}
+          $
+          {(
+            (item.price - (item.price * item.discount) / 100) *
+            item.quantity
+          ).toFixed(2)}
         </h6>
       </div>
     </div>

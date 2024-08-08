@@ -4,7 +4,6 @@ import Link from "next/link";
 
 export default async function Categories() {
   const categories = await getProductCategory();
-  console.log(categories);
   return (
     <>
       <div className="container ml-10 mt-20">

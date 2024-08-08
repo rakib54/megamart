@@ -1,6 +1,6 @@
 'use server'
 
-import { addedToCartProduct, decrementProductQuantityFromCart, deleteCart, incrementProductQuantityFromCart } from "@/database/queries/cart";
+import { addedToCartProduct, decrementProductQuantityFromCart, deleteCart, deleteCartAfterOrder, incrementProductQuantityFromCart } from "@/database/queries/cart";
 import { revalidatePath } from "next/cache";
 
 export const removeCart = async (userId, productId, quantity) => {
@@ -40,6 +40,17 @@ export const incrementProduct = async (userId, productId) => {
     await incrementProductQuantityFromCart(userId, productId);
 
     revalidatePath("/cart");
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export const deleteCartAfterOrderComplete = async (userId) => {
+  try {
+    await deleteCartAfterOrder(userId);
+
+    revalidatePath("/cart");
+
   } catch (error) {
     throw new Error(error.message);
   }

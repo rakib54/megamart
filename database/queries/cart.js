@@ -109,3 +109,13 @@ export const decrementProductQuantityFromCart = async (userId, productId) => {
     throw new Error(error.message)
   }
 }
+
+export const deleteCartAfterOrder = async (userId) => {
+  await dbConnect();
+
+  try {
+    await cartModel.deleteMany({ userId: userId });
+  } catch (error) {
+    throw new Error("Something went wrong!");
+  }
+}

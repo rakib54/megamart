@@ -1,19 +1,40 @@
 "use client";
 
+import { deleteCartAfterOrderComplete } from "@/app/actions/cart-action";
+import { placeOrderAfterPayment } from "@/app/actions/order-action";
 import { createCheckoutSessions } from "@/app/actions/stripe";
 
-export default function CheckoutForm({ userId, carts }) {
-  const Total = carts.reduce((curr, item) => {
-    return curr + item.price * item.quantity;
+export default function CheckoutForm({ session, carts }) {
+  const userId = session?.user?.id;
+  const total = carts.reduce((curr, item) => {
+    return (
+      curr + (item.price - (item.price * item.discount) / 100) * item.quantity
+    );
   }, 0);
 
-  const vat = Total * 0.15;
+  const vat = total * 0.15;
 
-  const subTotal = Total + vat;
+  const subTotal = total + vat;
 
-  const formAction = async () => {
-    const { url } = await createCheckoutSessions();
-    window.location.assign(url);
+  const formAction = async (data) => {
+    const orderDetails = {
+      userId: session?.user?.id,
+      subTotal: data.get("subtotal"),
+      orderDetails: carts,
+      shippingAddress: data.get("permanent-address"),
+      phone: data.get("phone"),
+      houseNo: data.get("house-no"),
+      division: data.get("division"),
+    };
+    const { url } = await createCheckoutSessions(data);
+
+    try {
+      await placeOrderAfterPayment(orderDetails);
+      await deleteCartAfterOrderComplete(session?.user?.id);
+      window.location.assign(url);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   return (
@@ -36,10 +57,12 @@ export default function CheckoutForm({ userId, carts }) {
                 </label>
                 <input
                   type="text"
-                  id="your_name"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                  placeholder="Rakibur"
-                  required
+                  id="username"
+                  name="username"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 disabled:cursor-not-allowed"
+                  value={session?.user?.name}
+                  disabled
+                  readOnly
                 />
               </div>
 
@@ -53,10 +76,11 @@ export default function CheckoutForm({ userId, carts }) {
                 </label>
                 <input
                   type="email"
-                  id="your_email"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                  placeholder="name@gamil.com"
-                  required
+                  id="email"
+                  name="email"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 disabled:cursor-not-allowed"
+                  value={session?.user?.email}
+                  readOnly
                 />
               </div>
 
@@ -70,8 +94,9 @@ export default function CheckoutForm({ userId, carts }) {
                   </label>
                 </div>
                 <select
-                  id="select-country-input-3"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
+                  id="country"
+                  name="country"
+                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
                 >
                   <option selected>Bangladesh</option>
                 </select>
@@ -83,24 +108,25 @@ export default function CheckoutForm({ userId, carts }) {
                     htmlFor="select-city-input-3"
                     className="block text-sm font-medium text-gray-900"
                   >
-                    City*{" "}
+                    Division*{" "}
                   </label>
                 </div>
                 <select
-                  id="select-city-input-3"
+                  id="division"
+                  name="division"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
                   defaultValue={"DEFAULT"}
                 >
                   <option value="DEFAULT" disabled>
-                    Choose a City ...
+                    Choose a Division ...
                   </option>
-                  <option value="Dh">Dhaka</option>
-                  <option value="Ch">Chattogram</option>
-                  <option value="Sy">Sylhet</option>
-                  <option value="Ra">Rajshahi</option>
-                  <option value="Ran">Rangpur</option>
-                  <option value="Kh">Khulna</option>
-                  <option value="Br">Barisal</option>
+                  <option value="Dhaka">Dhaka</option>
+                  <option value="Chattogram">Chattogram</option>
+                  <option value="Sylhet">Sylhet</option>
+                  <option value="Rajshahi">Rajshahi</option>
+                  <option value="Rangpur">Rangpur</option>
+                  <option value="Khulna">Khulna</option>
+                  <option value="Barisal">Barisal</option>
                 </select>
               </div>
 
@@ -116,10 +142,10 @@ export default function CheckoutForm({ userId, carts }) {
                   <div className="relative w-full">
                     <input
                       type="text"
-                      id="phone-input"
+                      id="phone"
+                      name="phone"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                      // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                      placeholder="123-456-7890"
+                      placeholder="+88011111111"
                       required
                     />
                   </div>
@@ -128,17 +154,18 @@ export default function CheckoutForm({ userId, carts }) {
 
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="permanent-address"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   {" "}
-                  Email{" "}
+                  Permanent Address{" "}
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="text"
+                  id="permanent-address"
+                  name="permanent-address"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
-                  placeholder="name@email.com"
+                  placeholder="Khilkhet, Dhaka"
                   required
                 />
               </div>
@@ -152,7 +179,8 @@ export default function CheckoutForm({ userId, carts }) {
                 </label>
                 <input
                   type="text"
-                  id="address"
+                  id="shipping-address"
+                  name="shipping-address"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="Khilkhet, Dhaka"
                   required
@@ -168,37 +196,12 @@ export default function CheckoutForm({ userId, carts }) {
                 </label>
                 <input
                   type="text"
-                  id="vat_number"
+                  id="house-no"
+                  name="house-no"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="1B/20A"
                   required
                 />
-              </div>
-
-              <div className="sm:col-span-2">
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 12h14m-7 7V5"
-                    />
-                  </svg>
-                  Add new address
-                </button>
               </div>
             </div>
           </div>
@@ -212,7 +215,7 @@ export default function CheckoutForm({ userId, carts }) {
                   Subtotal
                 </dt>
                 <dd className="text-base font-medium text-gray-900 ">
-                  ${Total.toFixed(2)}
+                  ${total.toFixed(2)}
                 </dd>
               </dl>
 
@@ -238,11 +241,21 @@ export default function CheckoutForm({ userId, carts }) {
               </dl>
             </div>
           </div>
+          <input
+            type="hidden"
+            name="subtotal"
+            value={`${subTotal.toFixed(2)}`}
+            readOnly
+          />
 
           <div className="space-y-3">
             <button
               type="submit"
-              className="flex w-full items-center justify-center rounded-lg bg-[#ff3f34] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#e94a42] focus:outline-none focus:ring-4  focus:ring-[#e94a42]"
+              className={`flex w-full items-center justify-center rounded-lg bg-[#ff3f34] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#e94a42] focus:outline-none focus:ring-4  focus:ring-[#e94a42] ${
+                subTotal === 0 &&
+                "disabled:cursor-not-allowed disabled:bg-gray-500"
+              }`}
+              disabled={subTotal === 0}
             >
               Proceed to Payment
             </button>

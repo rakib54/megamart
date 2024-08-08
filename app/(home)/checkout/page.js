@@ -9,7 +9,7 @@ export default async function CheckoutPage() {
 
   return (
     <section className="bg-white py-8 antialiased md:py-16">
-      <CheckoutForm userId={session?.user?.id} carts={carts} />
+      <CheckoutForm session={session} carts={carts} />
     </section>
   )
 }

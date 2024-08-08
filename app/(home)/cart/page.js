@@ -9,7 +9,7 @@ export default async function Cart() {
   const cartList = await getCartsForUser(session?.user?.id);
 
   const subTotal = cartList.reduce((curr, item) => {
-    return curr + (item.price * item.quantity)
+    return curr + ((item.price - (item.price * item.discount) / 100) * item.quantity);
   }, 0);
 
   return (
@@ -36,7 +36,7 @@ export default async function Cart() {
 
           <div className="flex items-center justify-between w-full py-6">
             <p className="font-manrope font-medium text-2xl leading-9 text-gray-900">Sub Total</p>
-            <h6 className="font-manrope font-medium text-2xl leading-9 text-[#c14c46]">${subTotal}</h6>
+            <h6 className="font-manrope font-medium text-2xl leading-9 text-[#c14c46]">${subTotal.toFixed(2)}</h6>
           </div>
         </div>
         <div className="flex items-center flex-col sm:flex-row justify-center gap-3 mt-8">

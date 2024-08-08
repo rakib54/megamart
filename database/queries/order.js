@@ -1,0 +1,25 @@
+import { orderModel } from "@/models/order-model";
+import { dbConnect } from "@/service/mongo";
+import { replaceMongoIdWithArray } from "@/utils/db-utils";
+
+export const getOrdersDetailsForUser = async (userId) => {
+  await dbConnect();
+
+  try {
+    const orders = await orderModel.find({ userId: userId });
+
+    return replaceMongoIdWithArray(orders);
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+export const placeOrder = async (details) => {
+  await dbConnect();
+
+  try {
+    await orderModel.create(details);
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
