@@ -29,8 +29,8 @@ export default function CheckoutForm({ session, carts }) {
     const { url } = await createCheckoutSessions(data);
 
     try {
-      await placeOrderAfterPayment(orderDetails);
-      await deleteCartAfterOrderComplete(session?.user?.id);
+      await placeOrderAfterPayment(orderDetails); // place order
+      await deleteCartAfterOrderComplete(session?.user?.id); // delete existing cart
       window.location.assign(url);
     } catch (error) {
       throw new Error(error.message);

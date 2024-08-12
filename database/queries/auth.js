@@ -17,7 +17,7 @@ export const getUser = async (email) => {
   await dbConnect();
 
   try {
-    const user = await userModel.findOne({ email });
+    const user = await userModel.findOne({ email }).lean();
 
     return replaceMongoIdWithObject(user);
   } catch (error) {
