@@ -1,8 +1,10 @@
 "use client";
 
+import { updatePassword } from "@/app/actions/profile-action";
 import { useState } from "react";
+import { toast } from "sonner";
 
-export default function ChangePassword() {
+export default function ChangePassword({ email }) {
   const [passwordState, setPasswordState] = useState({
     oldPassword: "",
     newPassword: "",
@@ -21,8 +23,32 @@ export default function ChangePassword() {
 
   const doPasswordChange = async (e) => {
     e.preventDefault();
+    setError("");
 
-    // need to be done
+    if (passwordState.newPassword !== passwordState.retypeNewPassword) {
+      setError("New Password and retype New password is not matched!");
+      return;
+    }
+
+    try {
+      await updatePassword(
+        email,
+        passwordState.oldPassword,
+        passwordState.newPassword
+      );
+      toast.success("Password is updated successfully");
+      reset();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const reset = () => {
+    setPasswordState({
+      oldPassword: "",
+      newPassword: "",
+      retypeNewPassword: "",
+    });
   };
 
   return (
@@ -32,7 +58,9 @@ export default function ChangePassword() {
       <form onSubmit={doPasswordChange}>
         <div className="grid grid-cols-1 gap-5">
           <div>
-            <label className="mb-2 block">Old password :</label>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Old password :
+            </label>
             <input
               className="w-full p-2"
               type="password"
@@ -44,7 +72,9 @@ export default function ChangePassword() {
             />
           </div>
           <div>
-            <label className="mb-2 block">New password :</label>
+            <label className="mb-2 block font-semibold text-gray-600">
+              New password :
+            </label>
             <input
               className="w-full p-2"
               type="password"
@@ -56,7 +86,9 @@ export default function ChangePassword() {
             />
           </div>
           <div>
-            <label className="mb-2 block">Re-type New password :</label>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Re-type New password :
+            </label>
             <input
               className="w-full p-2"
               type="password"

@@ -3,8 +3,10 @@
 import { deleteCartAfterOrderComplete } from "@/app/actions/cart-action";
 import { placeOrderAfterPayment } from "@/app/actions/order-action";
 import { createCheckoutSessions } from "@/app/actions/stripe";
+import { useState } from "react";
 
 export default function CheckoutForm({ session, carts }) {
+  const [error, setError] = useState();
   const userId = session?.user?.id;
   const total = carts.reduce((curr, item) => {
     return (
@@ -17,6 +19,7 @@ export default function CheckoutForm({ session, carts }) {
   const subTotal = total + vat;
 
   const formAction = async (data) => {
+    setError("");
     const orderDetails = {
       userId: session?.user?.id,
       subTotal: data.get("subtotal"),
@@ -29,11 +32,13 @@ export default function CheckoutForm({ session, carts }) {
     const { url } = await createCheckoutSessions(data);
 
     try {
-      await placeOrderAfterPayment(orderDetails); // place order
-      await deleteCartAfterOrderComplete(session?.user?.id); // delete existing cart
-      window.location.assign(url);
+      if (!error) {
+        await placeOrderAfterPayment(orderDetails); // place order
+        await deleteCartAfterOrderComplete(session?.user?.id); // delete existing cart
+        window.location.assign(url);
+      }
     } catch (error) {
-      throw new Error(error.message);
+      setError(error.message);
     }
   };
 
@@ -116,6 +121,7 @@ export default function CheckoutForm({ session, carts }) {
                   name="division"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
                   defaultValue={"DEFAULT"}
+                  required
                 >
                   <option value="DEFAULT" disabled>
                     Choose a Division ...
@@ -208,6 +214,9 @@ export default function CheckoutForm({ session, carts }) {
         </div>
 
         <div className="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
+          {error && (
+            <p className="text-red-600 text-sm">*Please fill out this form!</p>
+          )}
           <div className="flow-root">
             <div className="-my-3 divide-y divide-gray-200 ">
               <dl className="flex items-center justify-between gap-4 py-3">

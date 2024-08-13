@@ -6,7 +6,7 @@ export const getOrdersDetailsForUser = async (userId) => {
   await dbConnect();
 
   try {
-    const orders = await orderModel.find({ userId: userId });
+    const orders = await orderModel.find({ userId: userId }).lean();
 
     return replaceMongoIdWithArray(orders);
   } catch (error) {

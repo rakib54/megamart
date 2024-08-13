@@ -14,7 +14,19 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  imageUrl: {
+  image: {
+    type: String,
+    required: false,
+  },
+  shippingAddress: {
+    type: String,
+    required: false,
+  },
+  permanentAddress: {
+    type: String,
+    required: false,
+  },
+  phone: {
     type: String,
     required: false,
   }

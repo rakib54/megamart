@@ -11,7 +11,6 @@ export default async function AccountSideBar() {
     redirect("/login");
   }
   const userInfo = await getUser(session?.user?.email);
-  console.log(userInfo);
 
   return (
     <div className="lg:w-1/4 md:px-3">
@@ -27,14 +26,25 @@ export default async function AccountSideBar() {
             />
             <div>
               <div className="relative size-28 mx-auto">
-                <Image
-                  src="/images/rakib.jpg"
-                  className="rounded-full shadow dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800"
-                  id="profile-banner"
-                  alt="profile-image"
-                  width={112}
-                  height={112}
-                />
+                {userInfo?.image ? (
+                  <Image
+                    src={userInfo.image}
+                    className="rounded-full shadow dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800"
+                    id="profile-banner"
+                    alt="profile-image"
+                    width={112}
+                    height={112}
+                  />
+                ) : (
+                  <Image
+                    src="/images/avatar-default.svg"
+                    className="rounded-full shadow dark:shadow-gray-800 ring-4 ring-slate-50 dark:ring-slate-800"
+                    id="profile-banner"
+                    alt="profile-image"
+                    width={112}
+                    height={112}
+                  />
+                )}
                 <label
                   className="absolute inset-0 cursor-pointer"
                   htmlFor="pro-img"

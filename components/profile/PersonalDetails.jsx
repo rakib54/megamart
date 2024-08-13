@@ -1,12 +1,13 @@
 "use client";
 
+import { updateUserInfo } from "@/app/actions/profile-action";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function PersonalDetails({ userInfo }) {
   const [infoState, setInfoState] = useState({
-    fullName: userInfo?.name,
+    name: userInfo?.name,
     email: userInfo?.email,
-    bio: userInfo?.bio,
     phone: userInfo?.phone,
     shippingAddress: userInfo?.shippingAddress,
     permanentAddress: userInfo?.permanentAddress,
@@ -25,6 +26,13 @@ export default function PersonalDetails({ userInfo }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    try {
+      await updateUserInfo(userInfo.email, infoState);
+      toast.success("profile is updated successfully.");
+    } catch (error) {
+      throw new Error(error.message);
+    }
+
     // need to be done
   };
 
@@ -34,23 +42,23 @@ export default function PersonalDetails({ userInfo }) {
       <form onSubmit={handleSubmit}>
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-5">
           <div>
-            <label className="mb-2 block">
-              Full Name : <span className="text-red-600">*</span>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Full Name :
             </label>
             <input
               className="w-full p-2"
               type="text"
-              placeholder="First Name:"
-              id="firstName"
-              name="firstName"
-              value={infoState?.fullName}
+              placeholder="Your Full Name:"
+              id="name"
+              name="name"
+              value={infoState?.name}
               onChange={handleChange}
               required
             />
           </div>
           <div>
-            <label className="mb-2 block">
-              Your Email : <span className="text-red-600">*</span>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Your Email :
             </label>
             <input
               className="w-full p-2"
@@ -62,7 +70,9 @@ export default function PersonalDetails({ userInfo }) {
             />
           </div>
           <div>
-            <label className="mb-2 block">Phone No :</label>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Phone No :
+            </label>
             <input
               className="w-full p-2"
               name="phone"
@@ -74,23 +84,27 @@ export default function PersonalDetails({ userInfo }) {
             />
           </div>
           <div>
-            <label className="mb-2 block">Shipping Address :</label>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Shipping Address :
+            </label>
             <input
               className="w-full p-2"
               id="shipping"
               name="shippingAddress"
-              placeholder="Shipping Address :"
+              placeholder="Add Your Shipping Address"
               value={infoState.shippingAddress}
               onChange={handleChange}
             />
           </div>
           <div>
-            <label className="mb-2 block">Permanent Address :</label>
+            <label className="mb-2 block font-semibold text-gray-600">
+              Permanent Address :
+            </label>
             <input
               className="w-full p-2"
               id="permanent"
               name="permanentAddress"
-              placeholder="Permanent Address :"
+              placeholder="Add Your Permanent Address"
               value={infoState.permanentAddress}
               onChange={handleChange}
             />
