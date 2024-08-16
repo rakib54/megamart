@@ -9,7 +9,7 @@ export default function NotFound() {
             <span className="sr-only">Error</span>404
           </h2>
           <p className="text-2xl font-semibold md:text-3xl text-gray-700 mb-10">
-            Sorry! we couldn't find this product.
+            Sorry! we couldn&apos;t find this product.
           </p>
           <Link
             rel="noopener noreferrer"
