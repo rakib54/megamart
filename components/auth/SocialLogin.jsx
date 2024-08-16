@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function SocialLogin() {
   const handleGoogleLogin = () => {
     signIn("google", {
-      callbackUrl: "http://localhost:3000/shop",
+      callbackUrl: "http://localhost:3000",
     });
   };
 

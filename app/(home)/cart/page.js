@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import CartCard from "@/components/cart/cartCard";
+import CartCard from "@/components/cart/CartCard";
 import { getCartsForUser } from "@/database/queries/cart";
 import Link from "next/link";
 
