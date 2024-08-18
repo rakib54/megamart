@@ -43,7 +43,7 @@ export default async function ProductInfo({ product, isAddedToWishList }) {
         product={product}
         userId={session?.user?.id}
       />
-      <SocialMediaShare />
+      <SocialMediaShare product={product} />
     </>
   );
 }

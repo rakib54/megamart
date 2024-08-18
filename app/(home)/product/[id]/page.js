@@ -9,16 +9,17 @@ import { getWishLists } from "@/database/queries/wishlist";
 
 export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);
+
+  // if product is not available 
+  if (!product) {
+    return <NotFound />
+  }
+
   const session = await auth();
   const wishLists = await getWishLists(session?.user?.id);
   const isAddedToWishList = wishLists?.productId.find((item) => item._id.toString() === id);
 
   const relatedProduct = await getRelatedProduct(id);
-
-
-  if (!product) {
-    return <NotFound />
-  }
 
   return (
     <div className="bg-gray-100  py-8">
