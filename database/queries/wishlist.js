@@ -39,6 +39,7 @@ export const addToWishList = async (userId, pId) => {
 }
 
 export const getWishLists = async (userId) => {
+  await dbConnect();
   if (!userId) return null;
   const wishlist = await wishListModel.findOne({ userId: userId })
     .populate({
@@ -52,6 +53,8 @@ export const getWishLists = async (userId) => {
 }
 
 export const deleteFromWishList = async (userId, pId) => {
+  await dbConnect();
+
   if (!userId) return null;
 
   try {

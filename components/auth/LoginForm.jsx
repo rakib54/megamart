@@ -57,7 +57,7 @@ export default function LoginForm({ addtocart, addtowishlist }) {
         router.push("/");
       }
     } catch (error) {
-      setError(error.message);
+      setError("Username or Password is wrong. Try again!");
     }
   };
 
