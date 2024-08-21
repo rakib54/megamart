@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { dbConnect } from "@/service/mongo";
 import { Inter } from "next/font/google";
+import { deleteExpireCartAndProductBackToInventory } from "../actions/cart-action";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,6 +17,9 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   await dbConnect();
+
+  await deleteExpireCartAndProductBackToInventory();
+
   return (
     <html lang="en">
       <body className={cn(inter.className, poppins.className)}>

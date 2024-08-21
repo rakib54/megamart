@@ -36,7 +36,7 @@ export const addedToCartProduct = async (userId, productDetails) => {
     if (alreadyExistsInCart) {
       await cartModel.updateOne(
         { productId: productDetails.productId },
-        { $inc: { quantity: productDetails.quantity } }
+        { $inc: { quantity: productDetails.quantity }, expireTime: Date.now() + 2 * 1000 * 60 },
       )
     } else {
       const newProduct = {
@@ -117,5 +117,25 @@ export const deleteCartAfterOrder = async (userId) => {
     await cartModel.deleteMany({ userId: userId });
   } catch (error) {
     throw new Error("Something went wrong!");
+  }
+}
+
+export const deleteExpireCart = async () => {
+  await dbConnect();
+  const currentTime = Date.now();
+
+  try {
+    const expireCarts = await cartModel.find({ expireTime: { $lte: currentTime } }).lean();
+
+    for (const cart of expireCarts) {
+      await productModel.updateOne(
+        { _id: cart.productId },
+        { $inc: { stock: cart.quantity } }
+      )
+      await cartModel.deleteOne({ productId: cart.productId })
+    }
+
+  } catch (error) {
+    throw new Error(error.message);
   }
 }

@@ -20,7 +20,7 @@ export const register = async (userInfo) => {
 }
 
 export const Login = async (credential) => {
-
+  await dbConnect();
   try {
     const response = await signIn("credentials", {
       email: credential.email,

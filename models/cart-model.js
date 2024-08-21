@@ -35,11 +35,11 @@ const cartSchema = new Schema({
   },
   orderTime: {
     type: Date,
-    default: Date.now()
+    required: true
   },
   expireTime: {
     type: Date,
-    default: Date.now() + 30 * 60 * 1000 // 30 minutes from creation time
+    required: true
   }
 });
 

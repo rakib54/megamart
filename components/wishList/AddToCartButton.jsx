@@ -13,6 +13,10 @@ export default function AddToCartButton({ userId, product }) {
       price: product.price,
       discount: product.discount,
       thumbnail: product.thumbnail,
+      orderTime: Date.now(),
+      expireTime:
+        Date.now() +
+        parseInt(process.env.NEXT_PUBLIC_EXPIRE_CART_AFTER_MINUTES) * 60 * 1000,
     };
     try {
       await addToCart(userId, productDetails);

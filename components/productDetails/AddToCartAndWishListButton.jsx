@@ -75,7 +75,7 @@ export default function AddToCartAndWishListButton({
             {quantity}
           </div>
           <button
-            disabled={quantity === 5}
+            disabled={product.stock <= 0 || quantity === 5}
             onClick={() => setQuantity((prev) => prev + 1)}
             className="h-8 w-8 text-xl flex  justify-center cursor-pointer select-none disabled:text-gray-300 disabled:cursor-not-allowed"
           >
@@ -87,8 +87,9 @@ export default function AddToCartAndWishListButton({
       <div className="flex -mx-2 mb-4 flex-wrap mt-7">
         <div className="w-full sm:w-1/2 px-2 mt-4 sm:mt-0">
           <button
+            disabled={product.stock <= 0}
             onClick={handleAddToCart}
-            className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 w-full flex items-center justify-center transition duration-300"
+            className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 w-full flex items-center justify-center transition duration-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
           >
             Add to Cart
             <svg
