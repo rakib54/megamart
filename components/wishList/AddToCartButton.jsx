@@ -32,6 +32,11 @@ export default function AddToCartButton({ userId, product }) {
       type="button"
       className="font-medium text-white  px-3 py-2 bg-blue-600 rounded disabled:cursor-not-allowed disabled:bg-gray-400"
       disabled={product.stock === 0}
+      title={
+        product.stock === 0
+          ? "Product is currently out of stock!"
+          : `${product.name}`
+      }
     >
       Add to cart
     </button>

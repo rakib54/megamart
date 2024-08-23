@@ -16,7 +16,7 @@ export default function LoginForm({ addtocart, addtowishlist }) {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
-
+    // await dbConnect();
     try {
       const formData = new FormData(event.currentTarget);
 
@@ -25,7 +25,7 @@ export default function LoginForm({ addtocart, addtowishlist }) {
 
       const response = await Login({ email, password });
 
-      if (response) {
+      if (!!response) {
         const userId = await getUserId(email);
 
         if (userId && addtocart) {
@@ -40,6 +40,12 @@ export default function LoginForm({ addtocart, addtowishlist }) {
               price: product.price,
               discount: product.discount,
               thumbnail: product.thumbnail,
+              orderTime: Date.now(),
+              expireTime:
+                Date.now() +
+                parseInt(process.env.NEXT_PUBLIC_EXPIRE_CART_AFTER_MINUTES) *
+                  60 *
+                  1000,
             };
             await addToCart(userId, productDetails);
             toast.success(`${product.name} is added to the cart`);
@@ -57,7 +63,8 @@ export default function LoginForm({ addtocart, addtowishlist }) {
         router.push("/");
       }
     } catch (error) {
-      setError("Username or Password is wrong. Try again!");
+      console.log("error in addtocart", error);
+      setError(error.message);
     }
   };
 

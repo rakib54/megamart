@@ -65,4 +65,5 @@ export const deleteExpireCartAndProductBackToInventory = async () => {
   await dbConnect();
   await deleteExpireCart();
   revalidatePath("/");
+  revalidatePath("/cart");
 }

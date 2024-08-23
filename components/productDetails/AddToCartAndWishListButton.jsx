@@ -90,6 +90,11 @@ export default function AddToCartAndWishListButton({
             disabled={product.stock <= 0}
             onClick={handleAddToCart}
             className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 w-full flex items-center justify-center transition duration-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
+            title={
+              product.stock === 0
+                ? "Product is currently out of stock!"
+                : `${product.name}`
+            }
           >
             Add to Cart
             <svg
