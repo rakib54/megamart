@@ -25,6 +25,10 @@ export default function AddToCartAndWishListButton({
       price: product.price,
       discount: product.discount,
       thumbnail: product.thumbnail,
+      orderTime: Date.now(),
+      expireTime:
+        Date.now() +
+        parseInt(process.env.NEXT_PUBLIC_EXPIRE_CART_AFTER_MINUTES) * 60 * 1000,
     };
 
     if (!userId) {
@@ -38,7 +42,9 @@ export default function AddToCartAndWishListButton({
         `${productDetails?.name} is added to the cart successfully.`
       );
     } catch (error) {
-      toast.error(error.message);
+      toast.error(
+        "oops! can not be added more than 5 products or the product is out of stock."
+      );
     }
   };
 

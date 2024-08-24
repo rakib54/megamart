@@ -17,12 +17,6 @@ export const addedToCartProduct = async (userId, productDetails) => {
 
   if (product.stock < productDetails.quantity) {
     throw new Error(`${product.name} is out of stock`);
-  } else {
-    // update the stock of products
-    await productModel.updateOne(
-      { _id: product._id },
-      { $inc: { stock: - productDetails.quantity } }
-    )
   }
 
   const alreadyExistsInCart = await cartModel.findOne({ productId: productDetails.productId, userId: userId });
@@ -32,12 +26,18 @@ export const addedToCartProduct = async (userId, productDetails) => {
   }
 
   try {
-
+    // update the stock of products
+    await productModel.updateOne(
+      { _id: product._id },
+      { $inc: { stock: - productDetails.quantity } }
+    )
+    // if cart is already existed
     if (alreadyExistsInCart) {
       await cartModel.updateOne(
         { productId: productDetails.productId },
-        { $inc: { quantity: productDetails.quantity }, expireTime: Date.now() + 2 * 1000 * 60 },
+        { $inc: { quantity: productDetails.quantity }, expireTime: Date.now() + parseInt(process.env.NEXT_PUBLIC_EXPIRE_CART_AFTER_MINUTES) * 1000 * 60 },
       )
+
     } else {
       const newProduct = {
         userId,
@@ -77,15 +77,14 @@ export const incrementProductQuantityFromCart = async (userId, productId) => {
     throw new Error("You can not add more than this! stock limited");
   }
 
-  await productModel.updateOne(
-    { _id: productId },
-    { $inc: { stock: -1 } }
-  )
-
   try {
+    await productModel.updateOne(
+      { _id: productId },
+      { $inc: { stock: -1 } }
+    )
     await cartModel.updateOne(
       { userId: userId, productId: productId },
-      { $inc: { quantity: 1 } }
+      { $inc: { quantity: 1 }, expireTime: Date.now() + parseInt(process.env.NEXT_PUBLIC_EXPIRE_CART_AFTER_MINUTES) * 1000 * 60 },
     )
   } catch (error) {
     throw new Error(error.message)
@@ -103,7 +102,7 @@ export const decrementProductQuantityFromCart = async (userId, productId) => {
     )
     await cartModel.updateOne(
       { userId: userId, productId: productId },
-      { $inc: { quantity: -1 } }
+      { $inc: { quantity: -1 }, expireTime: Date.now() + parseInt(process.env.NEXT_PUBLIC_EXPIRE_CART_AFTER_MINUTES) * 1000 * 60 },
     )
   } catch (error) {
     throw new Error(error.message)

@@ -34,6 +34,14 @@ export default async function ProductInfo({ product, isAddedToWishList }) {
         <span className="text-gray-600 ">{product.category}</span>
       </div>
       <div className="mb-4">
+        <span className="font-bold text-gray-700 ">Stock: </span>
+        <span
+          className={`${product.stock > 5 ? "text-green-600" : "text-red-600"}`}
+        >
+          {product.stock}
+        </span>
+      </div>
+      <div className="mb-4">
         <span className="font-bold text-gray-700">Brand: </span>
         <span className="text-gray-600 ">{product.brand}</span>
       </div>

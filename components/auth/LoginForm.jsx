@@ -16,7 +16,6 @@ export default function LoginForm({ addtocart, addtowishlist }) {
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("");
-    // await dbConnect();
     try {
       const formData = new FormData(event.currentTarget);
 
@@ -63,8 +62,7 @@ export default function LoginForm({ addtocart, addtowishlist }) {
         router.push("/");
       }
     } catch (error) {
-      console.log("error in addtocart", error);
-      setError(error.message);
+      setError("Username or Password is incorrect!");
     }
   };
 

@@ -22,7 +22,9 @@ export default function AddToCartButton({ userId, product }) {
       await addToCart(userId, productDetails);
       toast.success(`${product.name} is added to cart`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(
+        "oops! can not be added more than 5 products or the product is out of stock."
+      );
     }
   };
 

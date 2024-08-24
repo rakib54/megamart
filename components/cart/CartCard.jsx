@@ -6,6 +6,7 @@ import {
   removeCart,
 } from "@/app/actions/cart-action";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -18,7 +19,7 @@ export default function CartCard({ item, userId }) {
       await removeCart(userId, item.productId, item.quantity);
       toast.success(`${item.name} is removed successfully from cart.`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Something went wrong when removing the item!");
     }
   };
 
@@ -29,7 +30,7 @@ export default function CartCard({ item, userId }) {
       await incrementProduct(userId, item.productId);
     } catch (error) {
       setQuantity((prev) => prev - 1);
-      toast.error(error.message);
+      toast.error(`Oops! ${item.name} is currently out of stock!`);
       setError(error.message);
     }
   };
@@ -57,9 +58,12 @@ export default function CartCard({ item, userId }) {
           />
         </div>
         <div className="pro-data w-full max-w-sm ">
-          <h5 className="font-semibold text-xl leading-8 text-black max-[550px]:text-center">
+          <Link
+            href={`product/${item.productId}`}
+            className="font-semibold text-xl leading-8 text-black max-[550px]:text-center"
+          >
             {item.name}
-          </h5>
+          </Link>
           <p className="font-normal text-lg  text-gray-500 my-2 min-[550px]:my-3 max-[550px]:text-center">
             {item.category}
           </p>

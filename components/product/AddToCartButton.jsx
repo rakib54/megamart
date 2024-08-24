@@ -29,14 +29,14 @@ export default function AddToCartButton({ product, userId }) {
       return;
     }
     try {
-      console.log("addtocart working!!");
       await addToCart(userId, productDetails);
       toast.success(
         `${productDetails?.name} is added to the cart successfully.`
       );
     } catch (error) {
-      console.log("error in button", error);
-      toast.error(error.message);
+      toast.error(
+        "oops! can not be added more than 5 products or the product is out of stock."
+      );
     }
   };
 
