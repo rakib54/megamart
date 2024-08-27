@@ -25,3 +25,38 @@ export const formatDateInBd = (date) => {
 
   return `${day}/${month}/${year}`;
 }
+
+export const formattedDateAndTime = (date) => {
+  const options = {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  }
+  const formattedDate = new Intl.DateTimeFormat("en-us", options).format(date);
+  const formattedDate2 = new Date(date).toLocaleString("en-us", options);
+
+  return formattedDate2;
+
+}
+
+export const updateOrderStatus = (date) => {
+  const currentDate = new Date();
+  const orderDate = new Date(date);
+
+  // Calculate the difference in days
+  const timeDifference = currentDate - orderDate;
+  const dayDifference = timeDifference / (1000 * 60 * 60 * 24); // Convert milliseconds to days
+  let status;
+
+  // Update the status based on the day difference
+  if (dayDifference >= 3) {
+    status = "Delivered";
+  } else {
+    status = "Pending";
+  }
+
+  return status;
+}

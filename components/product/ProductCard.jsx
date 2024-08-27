@@ -44,11 +44,13 @@ export default async function ProductCard({ product }) {
               2
             )}
           </p>
-          <del>
-            <p className="text-sm text-gray-600 cursor-auto ml-2">
-              ${product.price}
-            </p>
-          </del>
+          {product.discount > 0 && (
+            <del>
+              <p className="text-sm text-gray-600 cursor-auto ml-2">
+                ${product.price}
+              </p>
+            </del>
+          )}
           <AddToWishListButton
             product={product}
             userId={userId}

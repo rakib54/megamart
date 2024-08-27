@@ -45,15 +45,15 @@ export default function FIlterBySize() {
         <div className="size-selector">
           <input
             onChange={handleSize}
-            checked={size === "sm"}
+            checked={size === "s"}
             type="radio"
-            name="sm"
-            value="sm"
-            id="sm"
+            name="s"
+            value="s"
+            id="s"
             className="hidden"
           />
           <label
-            htmlFor="sm"
+            htmlFor="s"
             className="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
           >
             S
@@ -63,14 +63,14 @@ export default function FIlterBySize() {
           <input
             onChange={handleSize}
             type="radio"
-            name="md"
-            value="md"
-            id="md"
+            name="m"
+            value="m"
+            id="m"
             className="hidden"
-            checked={size === "md"}
+            checked={size === "m"}
           />
           <label
-            htmlFor="md"
+            htmlFor="m"
             className="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
           >
             M
@@ -80,14 +80,14 @@ export default function FIlterBySize() {
           <input
             onChange={handleSize}
             type="radio"
-            name="lg"
-            id="lg"
-            value="lg"
+            name="l"
+            id="l"
+            value="l"
             className="hidden"
-            checked={size === "lg"}
+            checked={size === "l"}
           />
           <label
-            htmlFor="lg"
+            htmlFor="l"
             className="text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600"
           >
             L

@@ -4,6 +4,11 @@ import SocialLogin from "@/components/auth/SocialLogin";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "SignUp | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
+
 export default async function SignUpPage({ searchParams: { addtocart, addtowishlist } }) {
   const session = await auth();
 

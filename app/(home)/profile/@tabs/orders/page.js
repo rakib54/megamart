@@ -1,7 +1,12 @@
 import { auth } from "@/auth";
 import { getOrdersDetailsForUser } from "@/database/queries/order";
-import { formatDateInBd } from "@/utils/date";
+import { formatDateInBd, updateOrderStatus } from "@/utils/date";
 import Image from "next/image";
+
+export const metadata = {
+  title: "Orders | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
 
 export default async function OrderPage() {
   const session = await auth();
@@ -30,7 +35,7 @@ export default async function OrderPage() {
                   Total Amount
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  details
+                  Status
                 </th>
               </tr>
             </thead>
@@ -40,12 +45,16 @@ export default async function OrderPage() {
                   <td className="px-6 py-4 font-semibold">
                     {order?.id}
                   </td>
-                  <td scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white font-semibold">
-                    <Image className="h-10 w-10 rounded" src={order.orderDetails[0].thumbnail} alt={order.orderDetails[0].name} width={40} height={40} />
-                    <div className="ps-3">
-                      <p className="text-base font-semibold">{order.orderDetails[0].name}</p>
-                      <div className="font-normal text-gray-500">{order.orderDetails[0].category}</div>
-                    </div>
+                  <td scope="row" className="flex items-center px-6 py-4 text-gray-900 dark:text-white font-semibold flex-wrap">
+                    {order.orderDetails.map((item) => (
+                      <div key={item.id} className="flex">
+                        <Image className="h-10 w-10 rounded" src={item.thumbnail} alt={item.name} width={40} height={40} />
+                        <div className="ps-3">
+                          <p className="text-base font-semibold">{item.name}</p>
+                          <div className="font-normal text-gray-500">{item.category}</div>
+                        </div>
+                      </div>
+                    ))}
                   </td>
 
                   <td className="px-6 py-4 font-semibold">
@@ -54,8 +63,8 @@ export default async function OrderPage() {
                   <td className="px-6 py-4 font-semibold">
                     ${order.subTotal}
                   </td>
-                  <td className="px-6 py-4 font-semibold">
-                    View Details
+                  <td className="px-6 py-4 text-sm">
+                    {updateOrderStatus(order.orderDate) == "Pending" ? <span className="text-red-500">Pending</span> : <span className="text-green-500">Delivered</span>}
                   </td>
                 </tr>
               ))}

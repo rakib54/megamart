@@ -15,8 +15,8 @@ export const products = [
     arrivalDate: "2024-07-01",
   },
   {
-    name: "Blue Berry T Shirt",
-    brand: "Blue Berry",
+    name: "Bur Berry T Shirt",
+    brand: "Bur Berry",
     stock: 25,
     discount: 15,
     price: 199,
@@ -45,6 +45,21 @@ export const products = [
     arrivalDate: "2024-06-26"
   },
   {
+    name: "Nike T Shirt",
+    brand: "Nike",
+    stock: 15,
+    discount: 10,
+    price: 199,
+    sku: "TSH-001-D",
+    category: "T Shirt",
+    description: "Nike is one of the most popular brand in the world. With a modern, slim fit and a classic crew neckline, this t-shirt offers a flattering silhouette for any body type. Our t-shirt features eco-friendly dyes and a pre-shrunk design to ensure it maintains its shape and color after every wash. Easy to care for, just machine wash cold and tumble dry low to keep your t-shirt looking fresh and vibrant.",
+    shortDescription: "Featuring a bold, vibrant print of a retro-inspired sunset, this t-shirt is perfect for those who love to make a statement",
+    thumbnail: "https://res.cloudinary.com/dex3bimbj/image/upload/v1719808489/nike-boys-green-cotton-t-shirt-544935-a827b5d31a2709963e8f655008c1a9b06f579ac8_xbmf25.jpg",
+    size: "M",
+    review: 15,
+    arrivalDate: "2024-07-26"
+  },
+  {
     name: "T Shirt",
     brand: "Easy",
     stock: 25,
@@ -58,5 +73,50 @@ export const products = [
     size: "M",
     review: 15,
     arrivalDate: "2024-06-18"
-  }
+  },
+  {
+    name: "Argentina Kit",
+    brand: "Adidas",
+    stock: 25,
+    discount: 20,
+    price: 149,
+    sku: "ARG-001-M",
+    category: "Jersey",
+    description: "Adidas is one of the most popular brand in the world. With a modern, slim fit and a classic crew neckline, this t-shirt offers a flattering silhouette for any body type. Our t-shirt features eco-friendly dyes and a pre-shrunk design to ensure it maintains its shape and color after every wash. Easy to care for, just machine wash cold and tumble dry low to keep your t-shirt looking fresh and vibrant.",
+    shortDescription: "Crafted from 100% organic cotton, our t-shirt is incredibly soft, breathable, and perfect for all-day wear.",
+    thumbnail: "https://res.cloudinary.com/dex3bimbj/image/upload/v1719808287/Black_Tee_Front_1024x1024_2x_z2qi0x.png",
+    size: "M",
+    review: 15,
+    arrivalDate: "2024-07-27"
+  },
+  {
+    name: "Argentina Away Kit",
+    brand: "Adidas",
+    stock: 25,
+    discount: 10,
+    price: 149,
+    sku: "ARG-001-L",
+    category: "Jersey",
+    description: "Adidas is one of the most popular brand in the world. They are famous for jersey. And this Argentina team is currently no 1 team in the world. They are the defending world cup champions and copa america champions. Our t-shirt features eco-friendly dyes and a pre-shrunk design to ensure it maintains its shape and color after every wash. Easy to care for, just machine wash cold and tumble dry low to keep your t-shirt looking fresh and vibrant.",
+    shortDescription: "Crafted from 100% organic cotton, our Jersey is incredibly soft, breathable, and perfect for all-day wear.",
+    thumbnail: "https://res.cloudinary.com/dex3bimbj/image/upload/v1724761270/Argentina_24_Away_Jersey_Kids_Blue_IP8385_01_laydown_r7nbc5.jpg",
+    size: "L",
+    review: 10,
+    arrivalDate: "2024-07-25"
+  },
+  {
+    name: "Argentina Away Kit",
+    brand: "Adidas",
+    stock: 25,
+    discount: 10,
+    price: 149,
+    sku: "ARG-001-M",
+    category: "Jersey",
+    description: "Adidas is one of the most popular brand in the world. They are famous for jersey. And this Argentina team is currently no 1 team in the world. They are the defending world cup champions and copa america champions. Our t-shirt features eco-friendly dyes and a pre-shrunk design to ensure it maintains its shape and color after every wash. Easy to care for, just machine wash cold and tumble dry low to keep your t-shirt looking fresh and vibrant.",
+    shortDescription: "Crafted from 100% organic cotton, our Jersey is incredibly soft, breathable, and perfect for all-day wear.",
+    thumbnail: "https://res.cloudinary.com/dex3bimbj/image/upload/v1724761270/Argentina_24_Away_Jersey_Kids_Blue_IP8385_01_laydown_r7nbc5.jpg",
+    size: "M",
+    review: 10,
+    arrivalDate: "2024-07-25"
+  },
 ]

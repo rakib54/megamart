@@ -16,10 +16,14 @@ export default async function ProductInfo({ product, isAddedToWishList }) {
             2
           )}
         </span>
-        <del className="text-gray-600 text-sm ml-2">${product.price}</del>
-        <span className="text-red-500 text-xs ml-3 italic">
-          {product.discount}% off
-        </span>
+        {product.discount > 0 && (
+          <>
+            <del className="text-gray-600 text-sm ml-2">${product.price}</del>
+            <span className="text-red-500 text-xs ml-3 italic">
+              {product.discount}% off
+            </span>
+          </>
+        )}
       </div>
       <div className="mb-4">
         <span className="font-bold text-gray-700 ">Availability: </span>

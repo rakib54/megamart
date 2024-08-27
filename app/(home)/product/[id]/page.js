@@ -7,6 +7,22 @@ import ProductInfo from "@/components/productDetails/ProductInfo";
 import { getProductById, getRelatedProduct } from "@/database/queries/product";
 import { getWishLists } from "@/database/queries/wishlist";
 
+export async function generateMetadata({ params }) {
+  const product = await getProductById(params.id);
+
+  if (!product) {
+    return {
+      title: 'Product Not Found - MegaMart',
+      description: 'The product you are looking for does not exist.',
+    };
+  }
+
+  return {
+    title: `${product.name} - MegaMart`,
+    description: `Buy ${product.name} at MegaMart for just $${product.price}. ${product.description}`,
+  };
+}
+
 export default async function ProductDetails({ params: { id } }) {
   const product = await getProductById(id);
 

@@ -40,7 +40,7 @@ export const getProducts = async (category, sort, min, max, size, searchText) =>
 
     if (size) {
       products = products.filter((product) => {
-        return product.size === size;
+        return product.size.toLowerCase() === size.toLowerCase();
       })
     }
 

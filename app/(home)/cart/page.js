@@ -3,6 +3,11 @@ import CartCard from "@/components/cart/CartCard";
 import { getCartsForUser } from "@/database/queries/cart";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Your cart | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
+
 export default async function Cart() {
   const session = await auth();
 

@@ -32,8 +32,6 @@ export default function PersonalDetails({ userInfo }) {
     } catch (error) {
       throw new Error(error.message);
     }
-
-    // need to be done
   };
 
   return (

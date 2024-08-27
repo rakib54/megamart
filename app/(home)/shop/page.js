@@ -13,6 +13,11 @@ function refineCategory(category) {
   return decodeURI(category);
 }
 
+export const metadata = {
+  title: "Shop | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
+
 export default async function ShopPage({ searchParams: { category, sort, min, max, size, q } }) {
   const updateCategory = refineCategory(category);
   const products = await getProducts(updateCategory, sort, min, max, size, q);

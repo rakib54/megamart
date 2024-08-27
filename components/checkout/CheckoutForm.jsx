@@ -5,9 +5,8 @@ import { placeOrderAfterPayment } from "@/app/actions/order-action";
 import { createCheckoutSessions } from "@/app/actions/stripe";
 import { useState } from "react";
 
-export default function CheckoutForm({ session, carts }) {
+export default function CheckoutForm({ userInfo, carts }) {
   const [error, setError] = useState();
-  const userId = session?.user?.id;
   const total = carts.reduce((curr, item) => {
     return (
       curr + (item.price - (item.price * item.discount) / 100) * item.quantity
@@ -15,13 +14,14 @@ export default function CheckoutForm({ session, carts }) {
   }, 0);
 
   const vat = total * 0.15;
+  const deliveryFee = total * 0.05;
 
-  const subTotal = total + vat;
+  const subTotal = total + vat + deliveryFee;
 
   const formAction = async (data) => {
     setError("");
     const orderDetails = {
-      userId: session?.user?.id,
+      userId: userInfo.id,
       subTotal: data.get("subtotal"),
       orderDetails: carts,
       shippingAddress: data.get("permanent-address"),
@@ -65,7 +65,7 @@ export default function CheckoutForm({ session, carts }) {
                   id="username"
                   name="username"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 disabled:cursor-not-allowed"
-                  value={session?.user?.name}
+                  value={userInfo.name}
                   disabled
                   readOnly
                 />
@@ -84,7 +84,8 @@ export default function CheckoutForm({ session, carts }) {
                   id="email"
                   name="email"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 disabled:cursor-not-allowed"
-                  value={session?.user?.email}
+                  value={userInfo.email}
+                  disabled
                   readOnly
                 />
               </div>
@@ -152,6 +153,7 @@ export default function CheckoutForm({ session, carts }) {
                       name="phone"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
                       placeholder="+88011111111"
+                      value={userInfo.phone}
                       required
                     />
                   </div>
@@ -172,6 +174,7 @@ export default function CheckoutForm({ session, carts }) {
                   name="permanent-address"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="Khilkhet, Dhaka"
+                  value={userInfo.permanentAddress}
                   required
                 />
               </div>
@@ -189,6 +192,7 @@ export default function CheckoutForm({ session, carts }) {
                   name="shipping-address"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="Khilkhet, Dhaka"
+                  value={userInfo.shippingAddress}
                   required
                 />
               </div>
@@ -215,10 +219,29 @@ export default function CheckoutForm({ session, carts }) {
 
         <div className="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
           {error && (
-            <p className="text-red-600 text-sm">*Please fill out this form!</p>
+            <p className="text-red-600 text-sm">* Please fill out this form!</p>
           )}
-          <div className="flow-root">
-            <div className="-my-3 divide-y divide-gray-200 ">
+          <div>
+            {carts.length > 0 &&
+              carts.map((cart, i) => (
+                <div
+                  key={cart.id}
+                  className="flex justify-between items-center mb-4 text-gray-500"
+                >
+                  <div className="basis-1/2 flex-wrap">{cart.name}</div>
+                  <div className="basis-1/6 flex-wrap text-center">
+                    X{cart.quantity}
+                  </div>
+                  <div className="text-gray-900 basis-1/3 flex-wrap text-right">
+                    $
+                    {(
+                      (cart.price - (cart.price * cart.discount) / 100) *
+                      cart.quantity
+                    ).toFixed(2)}
+                  </div>
+                </div>
+              ))}
+            <div className="-my-3 divide-y divide-gray-200">
               <dl className="flex items-center justify-between gap-4 py-3">
                 <dt className="text-base font-normal text-gray-500 ">
                   Subtotal
@@ -232,7 +255,9 @@ export default function CheckoutForm({ session, carts }) {
                 <dt className="text-base font-normal text-gray-500 ">
                   Delivery Fee
                 </dt>
-                <dd className="text-base font-medium text-gray-900 ">$00</dd>
+                <dd className="text-base font-medium text-gray-900 ">
+                  ${deliveryFee.toFixed(2)}
+                </dd>
               </dl>
 
               <dl className="flex items-center justify-between gap-4 py-3">

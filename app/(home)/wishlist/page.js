@@ -5,6 +5,11 @@ import { getWishLists } from "@/database/queries/wishlist";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "WishList | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
+
 export default async function WishlistPage() {
   const session = await auth();
   const items = await getWishLists(session?.user?.id);

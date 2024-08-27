@@ -1,5 +1,10 @@
 import AccountSideBar from "@/components/profile/AccountSideBar";
 
+export const metadata = {
+  title: "Profile | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
+
 export default function Layout({ tabs }) {
   return (
     <section className="relative pb-16">

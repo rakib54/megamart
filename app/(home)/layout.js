@@ -24,8 +24,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={cn(inter.className, poppins.className)}>
         <Toaster richColors position="top-center" />
-        <Navbar />
-        {/* <Categories /> */}
+        <Navbar show={true} />
         {children}
         <Footer />
       </body>
