@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function CheckoutForm({ userInfo, carts }) {
   const [error, setError] = useState();
+
   const total = carts.reduce((curr, item) => {
     return (
       curr + (item.price - (item.price * item.discount) / 100) * item.quantity
@@ -18,23 +19,57 @@ export default function CheckoutForm({ userInfo, carts }) {
 
   const subTotal = total + vat + deliveryFee;
 
+  const [orderDetails, setOrderDetails] = useState({
+    userId: userInfo.id,
+    subTotal: subTotal.toFixed(2),
+    orderDetails: carts,
+    shippingAddress: userInfo.shippingAddress || "",
+    phone: userInfo.phone || "",
+    houseNo: "",
+    division: "",
+  });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setOrderDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const isNonEmptyString = (str) =>
+    typeof str === "string" && str.trim() !== "";
+
+  const isFormValid = () => {
+    // Check for required string properties (excluding orderDetails which is an array)
+    const requiredStringProps = [
+      "shippingAddress",
+      "phone",
+      "houseNo",
+      "division",
+    ];
+    return requiredStringProps.every((prop) =>
+      isNonEmptyString(orderDetails[prop])
+    );
+  };
   const formAction = async (data) => {
-    setError("");
     const orderDetails = {
       userId: userInfo.id,
       subTotal: data.get("subtotal"),
       orderDetails: carts,
-      shippingAddress: data.get("permanent-address"),
+      shippingAddress: data.get("permanentAddress"),
       phone: data.get("phone"),
-      houseNo: data.get("house-no"),
+      houseNo: data.get("houseNo"),
       division: data.get("division"),
     };
     const { url } = await createCheckoutSessions(data);
 
     try {
-      if (!error) {
+      if (isFormValid()) {
+        setError("");
         await placeOrderAfterPayment(orderDetails); // place order
-        await deleteCartAfterOrderComplete(session?.user?.id); // delete existing cart
+        await deleteCartAfterOrderComplete(userInfo?.id); // delete existing cart
         window.location.assign(url);
       }
     } catch (error) {
@@ -121,10 +156,11 @@ export default function CheckoutForm({ userInfo, carts }) {
                   id="division"
                   name="division"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                  defaultValue={"DEFAULT"}
+                  value={orderDetails.division}
+                  onChange={handleChange}
                   required
                 >
-                  <option value="DEFAULT" disabled>
+                  <option value="" disabled>
                     Choose a Division ...
                   </option>
                   <option value="Dhaka">Dhaka</option>
@@ -152,8 +188,9 @@ export default function CheckoutForm({ userInfo, carts }) {
                       id="phone"
                       name="phone"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
-                      placeholder="+88011111111"
-                      value={userInfo.phone}
+                      placeholder="+880779121212"
+                      value={orderDetails.phone}
+                      onChange={handleChange}
                       required
                     />
                   </div>
@@ -162,7 +199,7 @@ export default function CheckoutForm({ userInfo, carts }) {
 
               <div>
                 <label
-                  htmlFor="permanent-address"
+                  htmlFor="permanentAddress"
                   className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   {" "}
@@ -170,11 +207,12 @@ export default function CheckoutForm({ userInfo, carts }) {
                 </label>
                 <input
                   type="text"
-                  id="permanent-address"
-                  name="permanent-address"
+                  id="permanentAddress"
+                  name="permanentAddress"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="Khilkhet, Dhaka"
-                  value={userInfo.permanentAddress}
+                  value={orderDetails.permanentAddress}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -189,10 +227,11 @@ export default function CheckoutForm({ userInfo, carts }) {
                 <input
                   type="text"
                   id="shipping-address"
-                  name="shipping-address"
+                  name="shippingAddress"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="Khilkhet, Dhaka"
-                  value={userInfo.shippingAddress}
+                  value={orderDetails.shippingAddress}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -207,9 +246,11 @@ export default function CheckoutForm({ userInfo, carts }) {
                 <input
                   type="text"
                   id="house-no"
-                  name="house-no"
+                  name="houseNo"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="1B/20A"
+                  value={orderDetails.houseNo}
+                  onChange={handleChange}
                   required
                 />
               </div>
