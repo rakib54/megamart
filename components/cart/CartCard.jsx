@@ -60,7 +60,7 @@ export default function CartCard({ item, userId }) {
         <div className="pro-data w-full max-w-sm ">
           <Link
             href={`product/${item.productId}`}
-            className="font-semibold text-xl leading-8 text-black max-[550px]:text-center"
+            className="font-semibold text-xl leading-8 text-black max-[550px]:text-center mx-auto"
           >
             {item.name}
           </Link>
@@ -132,14 +132,14 @@ export default function CartCard({ item, userId }) {
               <path
                 d="M16.5 11H5.5"
                 stroke=""
-                stroke-opacity="0.2"
+                strokeOpacity="0.2"
                 strokeWidth="1.6"
                 strokeLinecap="round"
               />
               <path
                 d="M16.5 11H5.5"
                 stroke=""
-                stroke-opacity="0.2"
+                strokeOpacity="0.2"
                 strokeWidth="1.6"
                 strokeLinecap="round"
               />
@@ -171,14 +171,14 @@ export default function CartCard({ item, userId }) {
               <path
                 d="M11 5.5V16.5M16.5 11H5.5"
                 stroke=""
-                stroke-opacity="0.2"
+                strokeOpacity="0.2"
                 strokeWidth="1.6"
                 strokeLinecap="round"
               />
               <path
                 d="M11 5.5V16.5M16.5 11H5.5"
                 stroke=""
-                stroke-opacity="0.2"
+                strokeOpacity="0.2"
                 strokeWidth="1.6"
                 strokeLinecap="round"
               />

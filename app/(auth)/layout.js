@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 const poppins = Inter({ subsets: ["latin"], variable: "--font-poppins" });
 
 export const metadata = {
-  title: "Login",
-  description: "Megamart",
+  title: "Login | Megamart",
+  description: "",
 };
 
 export default async function RootLayout({ children }) {

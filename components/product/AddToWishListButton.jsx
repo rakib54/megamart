@@ -34,12 +34,14 @@ export default function AddToWishListButton({
     <button
       onClick={handleAddToWishList}
       className="ml-auto"
-      title="Add to wishList"
+      title={`${
+        isAddedToWishList ? "Remove from wish list" : "Add to wish list"
+      }`}
     >
       {!isAddedToWishList ? (
-        <FaRegHeart className="text-2xl cursor-pointer text-red-500" />
+        <FaRegHeart className="text-2xl cursor-pointer text-red-500 hover:fill-[red] transition duration-300" />
       ) : (
-        <FaHeart className="text-2xl cursor-pointer text-red-500" />
+        <FaHeart className="text-2xl cursor-pointer text-red-500 hover:fill-[red] transition duration-300" />
       )}
     </button>
   );

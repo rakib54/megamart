@@ -55,6 +55,7 @@ module.exports = {
       fontFamily: {
         inter: "var(--font-inter)",
         poppins: "var(--font-poppins)",
+        'Kaushan': ['Kaushan Script', 'cursive']
       },
       borderRadius: {
         lg: "var(--radius)",

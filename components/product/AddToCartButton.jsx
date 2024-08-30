@@ -44,7 +44,7 @@ export default function AddToCartButton({ product, userId }) {
     <button
       disabled={product.stock <= 0}
       onClick={handleAddToCart}
-      className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 w-full flex items-center justify-center"
+      className="py-2 px-4 bg-[#2f3542] text-white rounded hover:bg-[#525b6f] disabled:opacity-50 w-full flex items-center justify-center transition duration-300"
       title={
         product.stock === 0
           ? "Product is currently out of stock!"

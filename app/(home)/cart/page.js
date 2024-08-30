@@ -18,10 +18,10 @@ export default async function Cart() {
   }, 0);
 
   return (
-    <section className="py-16">
+    <section className="container mt-10">
       {cartList.length > 0 ? <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
 
-        <h2 className=" font-bold text-3xl leading-10 mb-8 text-left text-black">Your Cart
+        <h2 className="font-semibold text-3xl leading-10 mb-8 text-left text-[#2f3542]">Your Cart
         </h2>
         <div className="hidden lg:grid grid-cols-2 py-6">
           <div className="font-normal text-xl leading-8 text-gray-500">Product</div>
@@ -50,13 +50,13 @@ export default async function Cart() {
             className="rounded-full w-full max-w-[280px] py-4 text-center justify-center items-center bg-[#ff3f34] font-semibold text-lg text-white flex transition-all duration-500 hover:bg-[#e6443c]">Checkout
             <svg className="ml-2" xmlns="http://www.w3.org/2000/svg" width="23" height="22" viewBox="0 0 23 22" fill="none">
               <path d="M8.75324 5.49609L14.2535 10.9963L8.75 16.4998" stroke="white" strokeWidth="1.6"
-                strokeLinecap="round" stroke-linejoin="round" />
+                strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
         </div>
       </div> :
-        <div className="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
-          <h2 className=" font-bold text-3xl leading-10 mb-8 text-left text-green-500">Your Cart is Empty!
+        <div className="w-full h-[250px] max-w-7xl px-4 md:px-5 mx-auto">
+          <h2 className=" font-semibold text-2xl mb-8 text-left text-[#2f3542]">Your Cart is Empty!
           </h2>
         </div>
       }

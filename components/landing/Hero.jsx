@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Header() {
+export default function Hero() {
   return (
     <div className="relative overflow-hidden bg-cover bg-no-repeat h-[500px] bg-[url('/shopping.jpg')]">
       <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.75)] bg-fixed">

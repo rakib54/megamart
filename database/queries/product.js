@@ -53,10 +53,10 @@ export const getProducts = async (category, sort, min, max, size, searchText) =>
 export const sortProductsByPreference = (products, sortType) => {
   let sortProducts;
   if (sortType === 'ltoh') {
-    return products.sort((a, b) => a.price - b.price);
+    return products.sort((a, b) => (a.price - (a.price * a.discount) / 100) - (b.price - (b.price * b.discount) / 100));
   }
   else if (sortType === 'htol') {  // descending
-    return products.sort((a, b) => b.price - a.price);
+    return products.sort((a, b) => (b.price - (b.price * b.discount) / 100) - (a.price - (a.price * a.discount) / 100));
 
   }
   else if (sortType === 'new') {

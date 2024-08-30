@@ -18,7 +18,7 @@ export default async function WishlistPage() {
   return (
     <div className="container p-10 h-screen">
       <h1 className="text-2xl text-gray-600 ">Your Favorite Items</h1>
-      {items?.productId.length > 0 ? <p className="text-base mt-2 font-bold text-gray-500">There are <span className="text-green-500">{items.productId.length}</span> products in your list</p> : <p className="text-base mt-2 font-bold text-gray-500">No Products added Yet!</p>}
+      {items?.productId.length > 0 ? <p className="text-base mt-2 font-bold text-gray-500">There are <span className="text-green-500">{items.productId.length}</span> products in your list</p> : <p className="text-base mt-2 font-bold text-[#2f3542]">No Products added Yet!</p>}
       {items?.productId.length > 0 && <div className="relative overflow-x-auto">
         <table className="w-full mt-10 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

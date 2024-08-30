@@ -5,12 +5,14 @@ import Link from "next/link";
 export default async function Categories() {
   const categories = await getProductCategory();
   return (
-    <>
-      <div className="container ml-10 mt-20">
-        <h1 className=" font-bold text-2xl">Top Categories</h1>
+    <div className="container mx-auto p-6">
+      <div className="mt-10 mb-10">
+        <h1 className="font-semibold text-2xl text-[#2f3542]">
+          Top Categories
+        </h1>
       </div>
 
-      <div className="container px-10 py-10 grid grid-cols-2 xl:grid-cols-6 lg:grid-cols-4 mx-auto md:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-2 justify-items-center justify-center">
+      <div className="grid grid-cols-2 xl:grid-cols-6 lg:grid-cols-4 mx-auto md:grid-cols-3 sm:grid-cols-2 gap-y-6 gap-x-2 justify-items-center justify-center">
         {categories?.map((category) => (
           <Link
             key={category.name}
@@ -28,6 +30,6 @@ export default async function Categories() {
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }

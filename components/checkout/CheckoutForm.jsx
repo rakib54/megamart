@@ -14,7 +14,7 @@ export default function CheckoutForm({ userInfo, carts }) {
     );
   }, 0);
 
-  const vat = total * 0.15;
+  const vat = total * 0.02;
   const deliveryFee = total * 0.05;
 
   const subTotal = total + vat + deliveryFee;
@@ -58,10 +58,11 @@ export default function CheckoutForm({ userInfo, carts }) {
       userId: userInfo.id,
       subTotal: data.get("subtotal"),
       orderDetails: carts,
-      shippingAddress: data.get("permanentAddress"),
+      shippingAddress: data.get("shippingAddress"),
       phone: data.get("phone"),
       houseNo: data.get("houseNo"),
       division: data.get("division"),
+      orderDate: Date.now(),
     };
     const { url } = await createCheckoutSessions(data);
 
@@ -211,7 +212,7 @@ export default function CheckoutForm({ userInfo, carts }) {
                   name="permanentAddress"
                   className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 "
                   placeholder="Khilkhet, Dhaka"
-                  value={orderDetails.permanentAddress}
+                  value={userInfo.permanentAddress}
                   onChange={handleChange}
                   required
                 />

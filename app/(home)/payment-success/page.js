@@ -29,19 +29,23 @@ export default async function PaymentSuccessPage() {
         <div className="p-4 md:p-6">
           <div className="grid gap-1 text-sm">
             <div className="flex items-center gap-2">
-              <div className="font-medium">Order number:</div>
+              <div className="font-semibold text-gray-500">Order number:</div>
               <div>#{latestOrder.id}</div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="font-medium">Date:</div>
+              <div className="font-semibold text-gray-500">Date:</div>
               <div>{formattedDateAndTime(latestOrder.orderDate)}</div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="font-medium">Payment method:</div>
+              <div className="font-semibold text-gray-500">Amount:</div>
+              <div>${latestOrder.subTotal}</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="font-semibold text-gray-500">Payment method:</div>
               <div>Visa Card</div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="font-medium">Shipping Address:</div>
+              <div className="font-semibold text-gray-500">Shipping Address:</div>
               <div>{latestOrder.shippingAddress}</div>
             </div>
           </div>

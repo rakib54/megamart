@@ -3,6 +3,11 @@ import CheckoutForm from "@/components/checkout/CheckoutForm";
 import { getUser } from "@/database/queries/auth";
 import { getCartsForUser } from "@/database/queries/cart";
 
+export const metadata = {
+  title: "Checkout | MegaMart",
+  description: "MegaMart, Your shopping mall",
+};
+
 export default async function CheckoutPage() {
 
   const session = await auth();

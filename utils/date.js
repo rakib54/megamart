@@ -36,9 +36,9 @@ export const formattedDateAndTime = (date) => {
     hour12: true
   }
   const formattedDate = new Intl.DateTimeFormat("en-us", options).format(date);
-  const formattedDate2 = new Date(date).toLocaleString("en-us", options);
+  // const formattedDate2 = new Date(date).toLocaleString("en-us", options);
 
-  return formattedDate2;
+  return formattedDate;
 
 }
 

@@ -95,7 +95,7 @@ export default function AddToCartAndWishListButton({
           <button
             disabled={product.stock <= 0}
             onClick={handleAddToCart}
-            className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 w-full flex items-center justify-center transition duration-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
+            className="py-2 px-4 bg-[#2f3542] text-white rounded hover:bg-[#525b6f] disabled:opacity-50 w-full flex items-center justify-center transition duration-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
             title={
               product.stock === 0
                 ? "Product is currently out of stock!"
@@ -124,7 +124,7 @@ export default function AddToCartAndWishListButton({
             onClick={handleAddToWishList}
             className={`${
               isAddedToWishList && "bg-red-500 text-white"
-            } py-2 px-4 rounded border text-red-500 border-red-500 disabled:opacity-50 w-full flex items-center justify-center transition duration-300 cursor-pointer `}
+            } py-2 px-4 rounded border text-red-500 border-red-500 disabled:opacity-50 w-full flex items-center justify-center transition duration-300 cursor-pointer hover:bg-red-600 hover:text-white`}
           >
             {isAddedToWishList ? "Added to wishList" : "Add to wishList"}
             <FaRegHeart className="text-xl ml-2" />
