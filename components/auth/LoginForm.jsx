@@ -122,7 +122,7 @@ export default function LoginForm({ addtocart, addtowishlist }) {
         </div>
         <button
           type="submit"
-          className="w-full text-white bg-[#ff3f34] hover:bg-[#ff2e23] focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-primary-700"
+          className="w-full text-white bg-[#2f3542] hover:bg-[#525b6f] transition duration-300 focus:ring-2 focus:outline-none focus:ring-[#2f3542] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
           LOGIN
         </button>

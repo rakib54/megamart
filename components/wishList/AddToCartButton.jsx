@@ -32,7 +32,7 @@ export default function AddToCartButton({ userId, product }) {
     <button
       onClick={addToCartButtonFromWishList}
       type="button"
-      className="font-medium text-white  px-3 py-2 bg-blue-600 rounded disabled:cursor-not-allowed disabled:bg-gray-400"
+      className="font-medium text-white  px-3 py-2 bg-[#2f3542] hover:bg-[#525b6f] rounded disabled:cursor-not-allowed disabled:bg-gray-400 transition duration-300"
       disabled={product.stock === 0}
       title={
         product.stock === 0

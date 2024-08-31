@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function Navigation({ categories }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
+  const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
@@ -19,7 +19,7 @@ export default function Navigation({ categories }) {
           className="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-40 max-lg:before:inset-0 max-lg:before:z-50"
         >
           <button
-            onClick={handleClick}
+            onClick={toggleMenu}
             id="toggleClose"
             className="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3"
           >
@@ -47,6 +47,7 @@ export default function Navigation({ categories }) {
             </li>
             <li className="max-lg:border-b max-lg:px-3 max-lg:py-3">
               <Link
+                onClick={toggleMenu}
                 href="/"
                 className="hover:text-[#656c78] transition duration-150 text-[#2f3542] font-semibold block text-[15px]"
               >
@@ -55,7 +56,7 @@ export default function Navigation({ categories }) {
             </li>
             <li className="group max-lg:border-b max-lg:px-3 max-lg:py-3 relative">
               <Link
-                href="javascript:void(0)"
+                href="#"
                 className="hover:text-[#656c78] transition duration-150 hover:fill-[white] text-[#2f3542] font-semibold text-[15px] block"
               >
                 Categories
@@ -78,6 +79,7 @@ export default function Navigation({ categories }) {
                 {categories.map((category) => (
                   <li key={category.name} className="border-b py-3">
                     <Link
+                      onClick={toggleMenu}
                       href={`/shop?category=${category.name}`}
                       className="hover:text-[#656c78] hover:fill-[#656c78] text-gray-600 font-semibold text-[15px] block"
                     >
@@ -101,6 +103,7 @@ export default function Navigation({ categories }) {
             </li>
             <li className="max-lg:border-b max-lg:px-3 max-lg:py-3">
               <Link
+                onClick={toggleMenu}
                 href="/shop"
                 className="hover:text-[#656c78] transition duration-150 text-[#2f3542] font-semibold text-[15px] block"
               >
@@ -111,7 +114,7 @@ export default function Navigation({ categories }) {
         </div>
 
         <div id="toggleOpen" className="flex ml-auto lg:hidden">
-          <button onClick={handleClick}>
+          <button onClick={toggleMenu}>
             <svg
               className="w-8 h-8"
               fill="#2f3542"

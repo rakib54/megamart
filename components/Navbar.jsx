@@ -56,7 +56,7 @@ export default async function Navbar({ show }) {
                 >
                   <FaRegHeart className="text-3xl" />
                   {wishLists?.productId?.length > 0 && (
-                    <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-2 text-white">
+                    <p className="absolute -top-3 -right-2 bg-red-500 rounded-full px-2 text-white">
                       {wishLists?.productId?.length}
                     </p>
                   )}
@@ -71,7 +71,7 @@ export default async function Navbar({ show }) {
                   <FaShoppingCart className="text-3xl" />
 
                   {carts?.length > 0 && (
-                    <p className="absolute -top-3 -right-2 bg-green-500 rounded-full px-2 text-white">
+                    <p className="absolute -top-3 -right-2 bg-red-500 rounded-full px-2 text-white">
                       {carts?.length}
                     </p>
                   )}

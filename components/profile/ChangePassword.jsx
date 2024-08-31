@@ -102,7 +102,7 @@ export default function ChangePassword({ email }) {
         </div>
         {/*end grid*/}
         <button
-          className="mt-5 cursor-pointer bg-green-700 font-bold text-white px-3 py-2 rounded"
+          className="mt-5 cursor-pointer bg-[#2f3542] hover:bg-[#525b6f] transition duration-300 font-semibold text-white px-3 py-2 rounded"
           type="submit"
         >
           Save password

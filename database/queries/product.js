@@ -66,14 +66,14 @@ export const sortProductsByPreference = (products, sortType) => {
   return products;
 }
 
-export const getLatestProducts = async () => {
+export const getLatestProducts = async (number) => {
   await dbConnect();
   try {
     const products = await productModel.find().lean();
 
     const newProducts = products.sort((a, b) => {
       return new Date(b.arrivalDate) - new Date(a.arrivalDate); // descending order by date
-    }).slice(0, 4);
+    }).slice(0, number);
 
     return replaceMongoIdWithArray(newProducts);
   } catch (error) {

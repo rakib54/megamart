@@ -1,8 +1,9 @@
 import { getLatestProducts } from "@/database/queries/product";
+import Link from "next/link";
 import ProductCard from "../product/ProductCard";
 
 export default async function LatestProducts() {
-  const latestProducts = await getLatestProducts();
+  const latestProducts = await getLatestProducts(8);
 
   return (
     <div className="container mx-auto p-6">
@@ -21,9 +22,12 @@ export default async function LatestProducts() {
         ))}
       </section>
       <div className="text-center mt-10">
-        <button className="py-2 px-4 bg-[#2f3542] text-white rounded hover:bg-[#525b6f] disabled:opacity-50 ">
-          Load More
-        </button>
+        <Link
+          href="/shop"
+          className="py-2 px-4 bg-[#2f3542] text-white rounded hover:bg-[#525b6f] disabled:opacity-50 transition duration-300"
+        >
+          See more
+        </Link>
       </div>
     </div>
   );

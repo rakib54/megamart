@@ -327,9 +327,9 @@ export default function CheckoutForm({ userInfo, carts }) {
           <div className="space-y-3">
             <button
               type="submit"
-              className={`flex w-full items-center justify-center rounded-lg bg-[#ff3f34] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#e94a42] focus:outline-none focus:ring-4  focus:ring-[#e94a42] ${
+              className={`flex w-full items-center justify-center rounded-lg bg-[#2f3542] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#525b6f]  focus:outline-none focus:ring-4 transition duration-300 ${
                 subTotal === 0 &&
-                "disabled:cursor-not-allowed disabled:bg-gray-500"
+                "disabled:cursor-not-allowed disabled:bg-gray-400"
               }`}
               disabled={subTotal === 0}
             >
