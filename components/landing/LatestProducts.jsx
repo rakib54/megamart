@@ -15,7 +15,7 @@ export default async function LatestProducts() {
 
       <section
         id="Projects"
-        className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-8  mb-5"
+        className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-8  mb-5"
       >
         {latestProducts.map((product) => (
           <ProductCard key={product.id} product={product} />

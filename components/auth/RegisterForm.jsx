@@ -21,7 +21,7 @@ export default function RegisterForm({ addtocart, addtowishlist }) {
       const confirmPassword = formData.get("confirm-password");
 
       if (password !== confirmPassword) {
-        setError("*password and confirmPassword does not match");
+        setError("*password and confirmPassword does not match!");
         return;
       }
       const hashedPassword = await bcrypt.hash(password, 5);
@@ -42,7 +42,7 @@ export default function RegisterForm({ addtocart, addtowishlist }) {
         router.push("/login");
       }
     } catch (error) {
-      setError(error.message);
+      setError("Email already Exists!");
     }
   };
 
@@ -136,7 +136,7 @@ export default function RegisterForm({ addtocart, addtowishlist }) {
       </div>
       <button
         type="submit"
-        className="w-full text-white #2f3542 hover:bg-[#525b6f] transition duration-300 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        className="w-full text-white bg-[#2f3542] hover:bg-[#525b6f] transition duration-300 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
       >
         Create an account
       </button>

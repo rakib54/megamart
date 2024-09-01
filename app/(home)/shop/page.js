@@ -174,7 +174,7 @@ export default async function ShopPage({ searchParams: { category, sort, min, ma
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-        </div> : <div className="font-bold text-xl">Product Not Found!</div>}
+        </div> : <div className="font-semibold text-xl text-[#2f3542]">Product Not Found!</div>}
 
       </div>
     </div>

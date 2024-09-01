@@ -144,3 +144,19 @@ export const getRelatedProduct = async (productId) => {
     throw new Error("No Result found!");
   }
 }
+
+
+export const getTrendingProducts = async (number) => {
+  await dbConnect();
+  try {
+    const products = await productModel.find().lean();
+
+    const newProducts = products.sort((a, b) => {
+      return b.review - a.review
+    }).slice(0, number);
+
+    return replaceMongoIdWithArray(newProducts);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

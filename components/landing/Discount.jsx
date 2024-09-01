@@ -4,7 +4,7 @@ export default function Discount() {
   return (
     <div className="mt-4 container mx-auto p-10">
       <Image
-        src="/images/discount3.jpg"
+        src="/images/discount4.jpg"
         className="w-full h-auto object-cover"
         alt="offer"
         height={250}

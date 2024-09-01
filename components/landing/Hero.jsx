@@ -2,15 +2,15 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <div className="relative overflow-hidden bg-cover bg-no-repeat h-[500px] bg-[url('/shopping.jpg')]">
+    <div className="relative overflow-hidden bg-cover bg-no-repeat h-[60vh] md:h-[80vh] bg-[url('/shopping.jpg')]">
       <div className="absolute top-0 right-0 bottom-0 left-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.75)] bg-fixed">
         <div className="flex h-full items-center justify-center">
           <div className="p-6 text-center text-gray-300 md:px-12">
-            <h1 className="mt-2 mb-10 text-5xl font-semibold tracking-tight md:text-6xl xl:text-7xl">
+            <h1 className="mt-2 mb-10 text-3xl sm:text-5xl font-semibold tracking-tight md:text-6xl xl:text-7xl">
               Your Favorite Products, <br />
               <span>Just a Click Away</span>
             </h1>
-            <p className="text-xl ">
+            <p className="text-base sm:text-xl">
               Explore our vast collection of products and enjoy amazing
               discounts.
               <br />

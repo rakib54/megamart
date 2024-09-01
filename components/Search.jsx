@@ -19,19 +19,20 @@ export default function Search() {
       router.replace(`/shop?${params.toString()}`);
     } else {
       setSearch("");
-      router.refresh();
+      params.delete("q");
+      router.replace(`/shop`);
     }
   };
 
   return (
     <form className="max-w-lg mx-auto hidden md:block" onSubmit={handleSubmit}>
       <div className="flex lg:ml-auto max-lg:w-full">
-        <div className="flex xl:w-80 max-xl:w-full bg-gray-200 px-6 py-3 rounded outline outline-transparent focus-within:outline-[#57606f] focus-within:bg-transparent ">
+        <div className="flex xl:w-80 max-xl:w-full bg-gray-200 px-6 py-3 rounded outline outline-transparent focus-within:outline-[#57606f] focus-within:bg-transparent">
           <input
             onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="Search products..."
-            className="w-full text-sm bg-transparent rounded outline-none pr-2"
+            className="w-full text-sm bg-transparent rounded outline-none pr-2 focus-within:text-white text-black"
           />
           <button type="submit">
             <svg
